@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <ModHelperDef>
+        <defName>StorageSearch</defName>
+        <ModName>StorageSearch</ModName>
+        <version>0.12.3</version>
+        <SpecialInjectors>
+            <li>StorageSearch.Injector_StorageSearch</li>
+        </SpecialInjectors>
+    </ModHelperDef>
+</Defs>
