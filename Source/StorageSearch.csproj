@@ -38,7 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\RimWorld914Win_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\RimWorld1135Win_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Community Core Library">
@@ -52,7 +52,7 @@
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\RimWorld914Win_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\RimWorld1135Win_Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
