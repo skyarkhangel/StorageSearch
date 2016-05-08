@@ -15,7 +15,7 @@ namespace StorageSearch
             tabStorage = new ITab_Storage_Enhanced();
         }
 
-        public override void Inject()
+        public override bool Inject()
         {
 
             FieldInfo field = typeof(Zone_Stockpile).GetField("StorageTab", BindingFlags.Static | BindingFlags.NonPublic);
@@ -48,6 +48,7 @@ namespace StorageSearch
             }
             Log.Message("Injector_StorageSearch : Injected");
 
+            return true;
         }
         
     }
