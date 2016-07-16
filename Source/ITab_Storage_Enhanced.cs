@@ -1,23 +1,19 @@
-﻿using RimWorld;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using StorageSearch;
 using UnityEngine;
 using Verse;
 
-namespace StorageSearch
+namespace RimWorld
 {
-    class ITab_Storage_Enhanced : ITab
+    public class ITab_Storage_Enhanced : ITab
     {
         private const float TopAreaHeight = 35f;
 
         private Vector2 scrollPosition = default(Vector2);
 
-        private static readonly Vector2 WinSize = new Vector2(300f, 520f);
-
-        private string searchText = "";
-
-        private bool isFocused;
+        private static readonly Vector2 WinSize = new Vector2(300f, 480f);
 
         private IStoreSettingsParent SelStoreSettingsParent
         {
@@ -35,6 +31,14 @@ namespace StorageSearch
             }
         }
 
+        //StorageSearch
+        private string searchText = "";
+
+        private bool isFocused;
+
+        //
+
+
         public ITab_Storage_Enhanced()
         {
             this.size = ITab_Storage_Enhanced.WinSize;
@@ -44,7 +48,6 @@ namespace StorageSearch
 
         protected override void FillTab()
         {
-
             ConceptDatabase.KnowledgeDemonstrated(ConceptDefOf.StorageTab, KnowledgeAmount.GuiFrame);
             ConceptDecider.TeachOpportunity(ConceptDefOf.StorageTabCategories, OpportunityType.GuiFrame);
             ConceptDecider.TeachOpportunity(ConceptDefOf.StoragePriority, OpportunityType.GuiFrame);
@@ -54,7 +57,7 @@ namespace StorageSearch
             GUI.BeginGroup(position);
             Text.Font = GameFont.Small;
             Rect rect = new Rect(0f, 0f, 160f, 29f);
-            if (Widgets.TextButton(rect, "Priority".Translate() + ": " + settings.Priority.Label(), true, false))
+            if (Widgets.ButtonText(rect, "Priority".Translate() + ": " + settings.Priority.Label(), true, false, true))
             {
                 List<FloatMenuOption> list = new List<FloatMenuOption>();
                 IEnumerator enumerator = Enum.GetValues(typeof(StoragePriority)).GetEnumerator();
@@ -66,11 +69,11 @@ namespace StorageSearch
                         if (storagePriority != StoragePriority.Unstored)
                         {
                             StoragePriority localPr = storagePriority;
-                            list.Add(new FloatMenuOption(localPr.Label(), delegate
+                            list.Add(new FloatMenuOption(localPr.Label().CapitalizeFirst(), delegate
                             {
                                 settings.Priority = localPr;
                                 ConceptDatabase.KnowledgeDemonstrated(ConceptDefOf.StoragePriority, KnowledgeAmount.Total);
-                            }, MenuOptionPriority.Medium, null, null));
+                            }, MenuOptionPriority.Medium, null, null, 0f, null));
                         }
                     }
                 }
@@ -82,13 +85,14 @@ namespace StorageSearch
                         disposable.Dispose();
                     }
                 }
-                Find.WindowStack.Add(new FloatMenu(list, false));
+                Find.WindowStack.Add(new FloatMenu(list));
             }
-            
-            var clearSearchRect = new Rect(position.width - 33f, (29f-14f)/2f, 14f, 14f);
-            var shouldClearSearch = (Widgets.ImageButton(clearSearchRect, Widgets.CheckboxOffTex));
 
-            var searchRect = new Rect(165f, 0f, position.width -160f - 20f, 29f);
+            #region StorageSearch
+            var clearSearchRect = new Rect(position.width - 33f, (29f - 14f) / 2f, 14f, 14f);
+            var shouldClearSearch = (Widgets.ButtonImage(clearSearchRect, Widgets.CheckboxOffTex));
+
+            var searchRect = new Rect(165f, 0f, position.width - 160f - 20f, 29f);
             var watermark = (searchText != string.Empty || isFocused) ? searchText : "Search";
 
             var escPressed = (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Escape);
@@ -108,7 +112,7 @@ namespace StorageSearch
                 searchText = searchInput;
             }
 
-            if (( GUI.GetNameOfFocusedControl() == "StorageSearchInput" || isFocused ) && ( escPressed || clickedOutside ))
+            if ((GUI.GetNameOfFocusedControl() == "StorageSearchInput" || isFocused) && (escPressed || clickedOutside))
             {
                 GUIUtility.keyboardControl = 0;
                 isFocused = false;
@@ -122,17 +126,16 @@ namespace StorageSearch
             {
                 searchText = string.Empty;
             }
+            #endregion
+
 
             TutorUIHighlighter.HighlightOpportunity("StoragePriority", rect);
             ThingFilter parentFilter = null;
-
             if (selStoreSettingsParent.GetParentStoreSettings() != null)
             {
                 parentFilter = selStoreSettingsParent.GetParentStoreSettings().filter;
             }
-
             Rect rect2 = new Rect(0f, 35f, position.width, position.height - 35f);
-
             HelperThingFilterUI.DoThingFilterConfigWindow(rect2, ref this.scrollPosition, settings.filter, parentFilter, 8, searchText);
             GUI.EndGroup();
         }

@@ -22,18 +22,19 @@ namespace StorageSearch
 
         private static float viewHeight;
 
+        // Verse.ThingFilterUI
         public static void DoThingFilterConfigWindow(Rect rect, ref Vector2 scrollPosition, ThingFilter filter, ThingFilter parentFilter = null, int openMask = 1, string filterText = null)
         {
             Widgets.DrawMenuSection(rect, true);
             Text.Font = GameFont.Tiny;
             float num = rect.width - 2f;
             Rect rect2 = new Rect(rect.x + 1f, rect.y + 1f, num / 2f, 24f);
-            if (Widgets.TextButton(rect2, "ClearAll".Translate(), true, false))
+            if (Widgets.ButtonText(rect2, "ClearAll".Translate(), true, false, true))
             {
                 filter.SetDisallowAll();
             }
             Rect rect3 = new Rect(rect2.xMax + 1f, rect2.y, num / 2f, 24f);
-            if (Widgets.TextButton(rect3, "AllowAll".Translate(), true, false))
+            if (Widgets.ButtonText(rect3, "AllowAll".Translate(), true, false, true))
             {
                 filter.SetAllowAll(parentFilter);
             }
@@ -41,13 +42,12 @@ namespace StorageSearch
             rect.yMin = rect2.yMax;
             Rect viewRect = new Rect(0f, 0f, rect.width - 16f, HelperThingFilterUI.viewHeight);
             Widgets.BeginScrollView(rect, ref scrollPosition, viewRect);
-            float num2 = 0f;
-            num2 += 2f;
+            float num2 = 2f;
             HelperThingFilterUI.DrawHitPointsFilterConfig(ref num2, viewRect.width, filter);
             HelperThingFilterUI.DrawQualityFilterConfig(ref num2, viewRect.width, filter);
             float num3 = num2;
-            Rect rect4 = new Rect(0f, num2, 9999f, 9999f);
-            Listing_TreeThingFilter listing_TreeThingFilter = new Listing_TreeThingFilter(rect4, filter, parentFilter, 210f, true);
+            Rect rect4 = new Rect(0f, num2, viewRect.width, 9999f);
+            Listing_TreeThingFilter listing_TreeThingFilter = new Listing_TreeThingFilter(rect4, filter, parentFilter);
             TreeNode_ThingCategory node = ThingCategoryNodeDatabase.RootNode;
             if (parentFilter != null)
             {
@@ -57,7 +57,7 @@ namespace StorageSearch
                 }
                 node = parentFilter.DisplayRootCategory;
             }
-
+            #region StorageSearch
             if (filterText != null && filterText.Length > 2)
             {
                 var rootNode = new TreeNode_ThingCategory(new ThingCategoryDef());
@@ -71,6 +71,7 @@ namespace StorageSearch
 
                 node = rootNode;
             }
+            #endregion
 
             listing_TreeThingFilter.DoCategoryChildren(node, 0, openMask, true);
             listing_TreeThingFilter.End();
@@ -89,7 +90,7 @@ namespace StorageSearch
             }
             Rect rect = new Rect(20f, y, width - 20f, 26f);
             FloatRange allowedHitPointsPercents = filter.AllowedHitPointsPercents;
-            Widgets.FloatRange(rect, 1, ref allowedHitPointsPercents, 0f, 1f, ToStringStyle.PercentZero, "HitPoints");
+            Widgets.FloatRange(rect, 1, ref allowedHitPointsPercents, 0f, 1f, "HitPoints", ToStringStyle.PercentZero);
             filter.AllowedHitPointsPercents = allowedHitPointsPercents;
             y += 26f;
             y += 5f;
