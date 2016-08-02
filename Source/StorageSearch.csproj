@@ -11,7 +11,7 @@
     <AssemblyName>StorageSearch</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -58,7 +58,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\About\About.xml" />
-    <Content Include="..\Defs\ModHelperDefs\ModHelper.xml" />
+    <Content Include="..\About\preview.png">
+      <Link>preview.png</Link>
+    </Content>
+    <Content Include="..\Defs\ModHelperDefs\ModHelper.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
