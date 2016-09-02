@@ -43,14 +43,11 @@ namespace RimWorld
         {
             this.size = ITab_Storage_Enhanced.WinSize;
             this.labelKey = "TabStorage";
-            this.tutorHighlightTag = "TabStorage";
+            this.tutorTag = "TabStorage";
         }
 
         protected override void FillTab()
         {
-            ConceptDatabase.KnowledgeDemonstrated(ConceptDefOf.StorageTab, KnowledgeAmount.GuiFrame);
-            ConceptDecider.TeachOpportunity(ConceptDefOf.StorageTabCategories, OpportunityType.GuiFrame);
-            ConceptDecider.TeachOpportunity(ConceptDefOf.StoragePriority, OpportunityType.GuiFrame);
             IStoreSettingsParent selStoreSettingsParent = this.SelStoreSettingsParent;
             StorageSettings settings = selStoreSettingsParent.GetStoreSettings();
             Rect position = new Rect(0f, 0f, ITab_Storage_Enhanced.WinSize.x, ITab_Storage_Enhanced.WinSize.y).ContractedBy(10f);
@@ -72,7 +69,6 @@ namespace RimWorld
                             list.Add(new FloatMenuOption(localPr.Label().CapitalizeFirst(), delegate
                             {
                                 settings.Priority = localPr;
-                                ConceptDatabase.KnowledgeDemonstrated(ConceptDefOf.StoragePriority, KnowledgeAmount.Total);
                             }, MenuOptionPriority.Medium, null, null, 0f, null));
                         }
                     }
@@ -129,7 +125,7 @@ namespace RimWorld
             #endregion
 
 
-            TutorUIHighlighter.HighlightOpportunity("StoragePriority", rect);
+            UIHighlighter.HighlightOpportunity(rect, "StoragePriority");
             ThingFilter parentFilter = null;
             if (selStoreSettingsParent.GetParentStoreSettings() != null)
             {

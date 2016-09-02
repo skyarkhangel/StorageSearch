@@ -30,19 +30,27 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'noCCL|AnyCPU'">
+    <OutputPath>..\Assemblies\</OutputPath>
+    <DefineConstants>NoCCL</DefineConstants>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DetourAttribute.cs" />
     <Compile Include="HelperThingFilterUI.cs" />
     <Compile Include="Injector_StorageSearch.cs" />
     <Compile Include="ITab_Storage_Enhanced.cs" />
+    <Compile Include="NoCCL\Detours.cs" />
+    <Compile Include="NoCCL\SpecialInjector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\RimWorldWin_Data\Managed\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Community Core Library">
-      <HintPath>..\..\Community Core Library\Assemblies\Community Core Library.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
