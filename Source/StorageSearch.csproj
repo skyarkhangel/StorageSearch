@@ -40,6 +40,9 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="_ITab_Bills.cs" />
+    <Compile Include="Dialog_ManageOutfitsStorageSearch.cs" />
+    <Compile Include="SpecialThingFilterWorker_Fresh.cs" />
     <Compile Include="DetourAttribute.cs" />
     <Compile Include="HelperThingFilterUI.cs" />
     <Compile Include="Injector_StorageSearch.cs" />

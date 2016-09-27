@@ -1,8 +1,5 @@
-﻿using RimWorld;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -40,11 +37,11 @@ namespace StorageSearch
             }
             Text.Font = GameFont.Small;
             rect.yMin = rect2.yMax;
-            Rect viewRect = new Rect(0f, 0f, rect.width - 16f, HelperThingFilterUI.viewHeight);
+            Rect viewRect = new Rect(0f, 0f, rect.width - 16f, viewHeight);
             Widgets.BeginScrollView(rect, ref scrollPosition, viewRect);
             float num2 = 2f;
-            HelperThingFilterUI.DrawHitPointsFilterConfig(ref num2, viewRect.width, filter);
-            HelperThingFilterUI.DrawQualityFilterConfig(ref num2, viewRect.width, filter);
+            DrawHitPointsFilterConfig(ref num2, viewRect.width, filter);
+            DrawQualityFilterConfig(ref num2, viewRect.width, filter);
             float num3 = num2;
             Rect rect4 = new Rect(0f, num2, viewRect.width, 9999f);
             Listing_TreeThingFilter listing_TreeThingFilter = new Listing_TreeThingFilter(rect4, filter, parentFilter);
@@ -77,7 +74,7 @@ namespace StorageSearch
             listing_TreeThingFilter.End();
             if (Event.current.type == EventType.Layout)
             {
-                HelperThingFilterUI.viewHeight = num3 + listing_TreeThingFilter.CurHeight + 90f;
+                viewHeight = num3 + listing_TreeThingFilter.CurHeight + 90f;
             }
             Widgets.EndScrollView();
         }

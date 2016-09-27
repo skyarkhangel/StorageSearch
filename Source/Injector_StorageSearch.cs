@@ -1,10 +1,10 @@
 ﻿#if NoCCL
+using System.Reflection;
+using RimWorld;
 using StorageSearch.NoCCL;
 #else
 using CommunityCoreLibrary;
 #endif
-using RimWorld;
-using System.Reflection;
 using Verse;
 
 namespace StorageSearch
@@ -22,7 +22,7 @@ namespace StorageSearch
 
         private static readonly BindingFlags[] bindingFlagCombos = {
             BindingFlags.Instance | BindingFlags.Public, BindingFlags.Static | BindingFlags.Public,
-            BindingFlags.Instance | BindingFlags.NonPublic, BindingFlags.Static | BindingFlags.NonPublic,
+            BindingFlags.Instance | BindingFlags.NonPublic, BindingFlags.Static | BindingFlags.NonPublic
         };
 
         public override bool Inject()

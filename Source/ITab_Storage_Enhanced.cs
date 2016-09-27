@@ -19,7 +19,7 @@ namespace RimWorld
         {
             get
             {
-                return (IStoreSettingsParent)base.SelObject;
+                return (IStoreSettingsParent)SelObject;
             }
         }
 
@@ -27,7 +27,7 @@ namespace RimWorld
         {
             get
             {
-                return this.SelStoreSettingsParent.StorageTabVisible;
+                return SelStoreSettingsParent.StorageTabVisible;
             }
         }
 
@@ -41,16 +41,16 @@ namespace RimWorld
 
         public ITab_Storage_Enhanced()
         {
-            this.size = ITab_Storage_Enhanced.WinSize;
-            this.labelKey = "TabStorage";
-            this.tutorTag = "TabStorage";
+            size = WinSize;
+            labelKey = "TabStorage";
+            tutorTag = "TabStorage";
         }
 
         protected override void FillTab()
         {
-            IStoreSettingsParent selStoreSettingsParent = this.SelStoreSettingsParent;
+            IStoreSettingsParent selStoreSettingsParent = SelStoreSettingsParent;
             StorageSettings settings = selStoreSettingsParent.GetStoreSettings();
-            Rect position = new Rect(0f, 0f, ITab_Storage_Enhanced.WinSize.x, ITab_Storage_Enhanced.WinSize.y).ContractedBy(10f);
+            Rect position = new Rect(0f, 0f, WinSize.x, WinSize.y).ContractedBy(10f);
             GUI.BeginGroup(position);
             Text.Font = GameFont.Small;
             Rect rect = new Rect(0f, 0f, 160f, 29f);
@@ -132,7 +132,7 @@ namespace RimWorld
                 parentFilter = selStoreSettingsParent.GetParentStoreSettings().filter;
             }
             Rect rect2 = new Rect(0f, 35f, position.width, position.height - 35f);
-            HelperThingFilterUI.DoThingFilterConfigWindow(rect2, ref this.scrollPosition, settings.filter, parentFilter, 8, searchText);
+            HelperThingFilterUI.DoThingFilterConfigWindow(rect2, ref scrollPosition, settings.filter, parentFilter, 8, searchText);
             GUI.EndGroup();
         }
     }
