@@ -34,7 +34,33 @@ namespace StorageSearch
             Rect rect = new Rect(0f, 0f, WinSize.x, WinSize.y).ContractedBy(10f);
             Func<List<FloatMenuOption>> recipeOptionsMaker = delegate
             {
-                List<FloatMenuOption> list = SelTable.def.AllRecipes.OrderBy(x => x?.LabelCap).Where(recipeDef => recipeDef.AvailableNow).Select(recipe => new FloatMenuOption(recipe.LabelCap, delegate
+                List<FloatMenuOption> list;
+                if (SelTable.def.defName.Equals("HandTailoringBench") || SelTable.def.defName.Equals("ElectricTailoringBench"))
+                {
+                    list = SelTable.def.AllRecipes.OrderByDescending(x => x?.products[0].thingDef.apparel?.bodyPartGroups[0].LabelCap).ThenBy(x=>x.LabelCap).Where(recipeDef => recipeDef.AvailableNow).Select(recipe => new FloatMenuOption(recipe.LabelCap, delegate
+                    {
+                        if (!Find.MapPawns.FreeColonists.Any(col => recipe.PawnSatisfiesSkillRequirements(col)))
+                        {
+                            Bill.CreateNoPawnsWithSkillDialog(recipe);
+                        }
+                        Bill bill = recipe.MakeNewBill();
+                        SelTable.billStack.AddBill(bill);
+                        if (recipe.conceptLearned != null)
+                        {
+                            PlayerKnowledgeDatabase.KnowledgeDemonstrated(recipe.conceptLearned, KnowledgeAmount.Total);
+                        }
+                        if (TutorSystem.TutorialMode)
+                        {
+                            TutorSystem.Notify_Event("AddBill-" + recipe.LabelCap);
+                        }
+                    })).ToList();
+
+                }
+                else
+                {
+                    
+
+                list = SelTable.def.AllRecipes.Where(recipeDef => recipeDef.AvailableNow).Select(recipe => new FloatMenuOption(recipe.LabelCap, delegate
                 {
                     if (!Find.MapPawns.FreeColonists.Any(col => recipe.PawnSatisfiesSkillRequirements(col)))
                     {
@@ -51,6 +77,8 @@ namespace StorageSearch
                         TutorSystem.Notify_Event("AddBill-" + recipe.LabelCap);
                     }
                 })).ToList();
+                }
+
                 if (!Enumerable.Any(list))
                 {
                     list.Add(new FloatMenuOption("NoneBrackets".Translate(), null));
