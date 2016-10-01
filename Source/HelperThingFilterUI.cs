@@ -55,7 +55,7 @@ namespace StorageSearch
                 node = parentFilter.DisplayRootCategory;
             }
             #region StorageSearch
-            if (filterText != null && filterText.Length > 2)
+            if (filterText != null && filterText.Length > 0)
             {
                 var rootNode = new TreeNode_ThingCategory(new ThingCategoryDef());
 
