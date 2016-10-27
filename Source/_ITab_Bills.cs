@@ -26,7 +26,7 @@ namespace StorageSearch
 
         private float viewHeight = 1000f;
 
-   //     [Detour(typeof(ITab_Bills), bindingFlags = (BindingFlags.Instance | BindingFlags.NonPublic))]
+      //  [Detour(typeof(ITab_Bills), bindingFlags = (BindingFlags.Instance | BindingFlags.NonPublic))]
         // RimWorld.ITab_Bills
         protected override void FillTab()
         {
@@ -37,7 +37,7 @@ namespace StorageSearch
                 List<FloatMenuOption> list;
                 if (SelTable.def.defName.Equals("HandTailoringBench") || SelTable.def.defName.Equals("ElectricTailoringBench"))
                 {
-                    list = SelTable.def.AllRecipes.OrderByDescending(x => x?.products[0].thingDef.apparel.bodyPartGroups[0])
+                    list = SelTable.def.AllRecipes.OrderByDescending(x => x?.products[0]?.thingDef?.apparel?.bodyPartGroups?[0])
                     .ThenBy(x=>x?.LabelCap)
                     .Where(recipeDef => recipeDef != null && recipeDef.AvailableNow)
                     .Select(recipe => new FloatMenuOption(recipe.LabelCap, delegate

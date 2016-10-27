@@ -40,13 +40,17 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="NewFolder1\StoreUtility_Detour.cs" />
+    <Compile Include="NewFolder1\StorageSettings_Enhanced.cs" />
+    <Compile Include="NewFolder1\StorageSettings_Hysteresis.cs" />
+    <Compile Include="NewFolder1\StorageSettings_Mapping.cs" />
     <Compile Include="_ITab_Bills.cs" />
     <Compile Include="Dialog_ManageOutfitsStorageSearch.cs" />
     <Compile Include="SpecialThingFilterWorker_Fresh.cs" />
     <Compile Include="DetourAttribute.cs" />
     <Compile Include="HelperThingFilterUI.cs" />
     <Compile Include="Injector_StorageSearch.cs" />
-    <Compile Include="ITab_Storage_Enhanced.cs" />
+    <Compile Include="ITab_Storage_Detour.cs" />
     <Compile Include="NoCCL\Detours.cs" />
     <Compile Include="NoCCL\SpecialInjector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

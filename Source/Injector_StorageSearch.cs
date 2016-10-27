@@ -1,4 +1,6 @@
-﻿#if NoCCL
+﻿
+using HaulingHysteresis;
+#if NoCCL
 using System.Reflection;
 using RimWorld;
 using StorageSearch.NoCCL;
@@ -11,11 +13,11 @@ namespace StorageSearch
 {
     public class Injector_StorageSearch : SpecialInjector
     {
-        ITab_Storage_Enhanced tabStorage;
+        ITab_Storage_Detour tabStorage;
 
         public Injector_StorageSearch()
         {
-            tabStorage = new ITab_Storage_Enhanced();
+            tabStorage = new ITab_Storage_Detour();
         }
 
         private static Assembly Assembly { get { return Assembly.GetAssembly(typeof(Injector_StorageSearch)); } }
@@ -52,35 +54,55 @@ namespace StorageSearch
             }
             #endregion
 
-
-            FieldInfo field = typeof(Zone_Stockpile).GetField("StorageTab", BindingFlags.Static | BindingFlags.NonPublic);
-            field.SetValue(null, tabStorage);
-
-            foreach (ThingDef current in DefDatabase<ThingDef>.AllDefs)
+            MethodInfo method = typeof(StorageSettings).GetMethod("ExposeData", BindingFlags.Instance | BindingFlags.Public);
+            MethodInfo method2 = typeof(StorageSettings_Enhanced).GetMethod("ExposeData", BindingFlags.Static | BindingFlags.Public);
+            bool flag = !Detours.TryDetourFromTo(method, method2);
+            if (!flag)
             {
-                if (current.inspectorTabsResolved != null)
+                method = typeof(StoreUtility).GetMethod("NoStorageBlockersIn", BindingFlags.Static | BindingFlags.NonPublic);
+                method2 = typeof(StoreUtility_Detour).GetMethod("NoStorageBlockersIn", BindingFlags.Static | BindingFlags.Public);
+                bool flag2 = !Detours.TryDetourFromTo(method, method2);
+                if (!flag2)
                 {
-                    bool flag = false;
-                    ITab tabToReplace = null;
-                    foreach (ITab tab in current.inspectorTabsResolved)
+                    ITab_Storage_Detour.Init();
+                    method = typeof(ITab_Storage).GetMethod("FillTab", BindingFlags.Instance | BindingFlags.NonPublic);
+                    method2 = typeof(ITab_Storage_Detour).GetMethod("FillTab", BindingFlags.Static | BindingFlags.Public);
+                    bool flag3 = !Detours.TryDetourFromTo(method, method2);
+                    if (flag3)
                     {
-                        if (tab.GetType() == typeof(ITab_Storage))
-                        {
-                            flag = true;
-                            tabToReplace = tab;
-                            break;
-                        }
-                    }
-
-                    if (flag)
-                    {
-                        int index = current.inspectorTabsResolved.IndexOf(tabToReplace);
-                        current.inspectorTabsResolved.RemoveAt(index);
-                        current.inspectorTabsResolved.Insert(index, tabStorage);
                     }
                 }
-
             }
+
+
+          //FieldInfo field = typeof(Zone_Stockpile).GetField("StorageTab", BindingFlags.Static | BindingFlags.NonPublic);
+          //field.SetValue(null, tabStorage);
+          //
+          //foreach (ThingDef current in DefDatabase<ThingDef>.AllDefs)
+          //{
+          //    if (current.inspectorTabsResolved != null)
+          //    {
+          //        bool flag = false;
+          //        ITab tabToReplace = null;
+          //        foreach (ITab tab in current.inspectorTabsResolved)
+          //        {
+          //            if (tab.GetType() == typeof(ITab_Storage))
+          //            {
+          //                flag = true;
+          //                tabToReplace = tab;
+          //                break;
+          //            }
+          //        }
+          //
+          //        if (flag)
+          //        {
+          //            int index = current.inspectorTabsResolved.IndexOf(tabToReplace);
+          //            current.inspectorTabsResolved.RemoveAt(index);
+          //            current.inspectorTabsResolved.Insert(index, tabStorage);
+          //        }
+          //    }
+          //
+          //}
             Log.Message("Injector_StorageSearch : Injected");
 
             return true;
