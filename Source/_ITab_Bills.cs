@@ -42,7 +42,7 @@ namespace StorageSearch
                     .Where(recipeDef => recipeDef != null && recipeDef.AvailableNow)
                     .Select(recipe => new FloatMenuOption(recipe.LabelCap, delegate
                     {
-                        if (!Find.MapPawns.FreeColonists.Any(col => recipe.PawnSatisfiesSkillRequirements(col)))
+                        if (!this.SelTable.Map.mapPawns.FreeColonists.Any((Pawn col) => recipe.PawnSatisfiesSkillRequirements(col)))
                         {
                             Bill.CreateNoPawnsWithSkillDialog(recipe);
                         }
@@ -65,7 +65,7 @@ namespace StorageSearch
                    
                 list = SelTable.def.AllRecipes.Where(recipeDef => recipeDef.AvailableNow).Select(recipe => new FloatMenuOption(recipe.LabelCap, delegate
                 {
-                    if (!Find.MapPawns.FreeColonists.Any(col => recipe.PawnSatisfiesSkillRequirements(col)))
+                    if (!SelTable.Map.mapPawns.FreeColonists.Any(col => recipe.PawnSatisfiesSkillRequirements(col)))
                     {
                         Bill.CreateNoPawnsWithSkillDialog(recipe);
                     }
@@ -88,7 +88,7 @@ namespace StorageSearch
                 }
                 return list;
             };
-            mouseoverBill = SelTable.billStack.DrawListing(rect, recipeOptionsMaker, ref scrollPosition, ref viewHeight);
+            mouseoverBill = SelTable.billStack.DoListing(rect, recipeOptionsMaker, ref scrollPosition, ref viewHeight);
         }
 
 

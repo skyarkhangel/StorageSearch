@@ -75,7 +75,7 @@ namespace StorageSearch
                 {
                     var localOut = current;
                     list.Add(new FloatMenuOption(localOut.label, delegate { SelectedOutfit = localOut; },
-                        MenuOptionPriority.Medium, null, null));
+                        MenuOptionPriority.Default, null, null));
                 }
                 Find.WindowStack.Add(new FloatMenu(list));
             }
@@ -106,7 +106,7 @@ namespace StorageSearch
                         {
                             SelectedOutfit = null;
                         }
-                    }, MenuOptionPriority.Medium, null, null, 0f, null));
+                    }));
                 }
                 Find.WindowStack.Add(new FloatMenu(list2));
             }
@@ -190,7 +190,7 @@ namespace StorageSearch
 
             //
 
-            HelperThingFilterUI.DoThingFilterConfigWindow(rect6, ref _scrollPosition, SelectedOutfit.filter, parentFilter, 8, searchText);
+            HelperThingFilterUI.DoThingFilterConfigWindow(rect6, ref _scrollPosition, SelectedOutfit.filter, parentFilter, 8, null,null, searchText);
 
             //ThingFilterUI.DoThingFilterConfigWindow(rect6, ref _scrollPosition, SelectedOutfit.filter, _apparelGlobalFilter, 16);
             GUI.EndGroup();

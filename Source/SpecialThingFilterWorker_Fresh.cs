@@ -16,7 +16,7 @@ namespace StorageSearch
             return comp != null && comp.Stage == RotStage.Fresh;
         }
 
-        public override bool PotentiallyMatches(ThingDef def)
+        public override bool CanEverMatch(ThingDef def)
         {
             return def.HasComp(typeof(CompRottable));
         }

@@ -5,6 +5,8 @@ using Verse;
 
 namespace StorageSearch
 {
+    using System.Collections.Generic;
+
     public static class HelperThingFilterUI
     {
         private const float ExtraViewHeight = 90f;
@@ -19,8 +21,10 @@ namespace StorageSearch
 
         private static float viewHeight;
 
+
+
         // Verse.ThingFilterUI
-        public static void DoThingFilterConfigWindow(Rect rect, ref Vector2 scrollPosition, ThingFilter filter, ThingFilter parentFilter = null, int openMask = 1, string filterText = null)
+        public static void DoThingFilterConfigWindow(Rect rect, ref Vector2 scrollPosition, ThingFilter filter, ThingFilter parentFilter = null, int openMask = 1, IEnumerable<ThingDef> forceHiddenDefs = null, IEnumerable<SpecialThingFilterDef> forceHiddenFilters = null, string filterText =null)
         {
             Widgets.DrawMenuSection(rect, true);
             Text.Font = GameFont.Tiny;
@@ -44,7 +48,7 @@ namespace StorageSearch
             DrawQualityFilterConfig(ref num2, viewRect.width, filter);
             float num3 = num2;
             Rect rect4 = new Rect(0f, num2, viewRect.width, 9999f);
-            Listing_TreeThingFilter listing_TreeThingFilter = new Listing_TreeThingFilter(rect4, filter, parentFilter);
+            Listing_TreeThingFilter listing_TreeThingFilter = new Listing_TreeThingFilter(rect4, filter, parentFilter, forceHiddenDefs, forceHiddenFilters);
             TreeNode_ThingCategory node = ThingCategoryNodeDatabase.RootNode;
             if (parentFilter != null)
             {
@@ -54,7 +58,9 @@ namespace StorageSearch
                 }
                 node = parentFilter.DisplayRootCategory;
             }
+
             #region StorageSearch
+
             if (filterText != null && filterText.Length > 0)
             {
                 var rootNode = new TreeNode_ThingCategory(new ThingCategoryDef());

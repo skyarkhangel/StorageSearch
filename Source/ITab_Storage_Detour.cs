@@ -74,7 +74,7 @@ namespace RimWorld
                         list.Add(new FloatMenuOption(localPr.Label().CapitalizeFirst(), delegate
                         {
                             settings.Priority = localPr;
-                        }, MenuOptionPriority.Medium, null, null, 0f, null));
+                        }, MenuOptionPriority.Default, null, null, 0f, null));
                     }
                 }
                 Find.WindowStack.Add(new FloatMenu(list));
@@ -130,7 +130,7 @@ namespace RimWorld
 			Rect rect2 = new Rect(0f, 35f, position.width, position.height - 70f);
 
             Vector2 vector = (Vector2)ITab_Storage_Detour.ScrollPosition.GetValue(tab);
-            HelperThingFilterUI.DoThingFilterConfigWindow(rect2, ref vector, settings.filter, parentFilter, 8, searchText);
+            HelperThingFilterUI.DoThingFilterConfigWindow(rect2, ref vector, settings.filter, parentFilter, 8, null, null, searchText);
             ITab_Storage_Detour.ScrollPosition.SetValue(tab, vector);
 
             // from Hauling Hysterisis

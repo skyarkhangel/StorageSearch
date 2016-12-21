@@ -7,16 +7,15 @@ namespace HaulingHysteresis
 {
     internal class StoreUtility_Detour
     {
-        public static bool NoStorageBlockersIn(IntVec3 c, Thing thing)
+        public static bool NoStorageBlockersIn(IntVec3 c, Map map, Thing thing)
         {
             float num = 100f;
-            bool flag = c.GetSlotGroup() != null && c.GetSlotGroup().Settings != null;
+            bool flag = c.GetSlotGroup(map) != null && c.GetSlotGroup(map).Settings != null;
             if (flag)
             {
-                num = StorageSettings_Mapping.Get(c.GetSlotGroup().Settings).FillPercent;
+                num = StorageSettings_Mapping.Get(c.GetSlotGroup(map).Settings).FillPercent;
             }
-            List<Thing> list = Find.ThingGrid.ThingsListAt(c);
-            int i = 0;
+            List<Thing> list = map.thingGrid.ThingsListAt(c); int i = 0;
             bool result;
             while (i < list.Count)
             {

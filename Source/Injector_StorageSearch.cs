@@ -53,26 +53,26 @@ namespace StorageSearch
                 }
             }
             #endregion
-
-            MethodInfo method = typeof(StorageSettings).GetMethod("ExposeData", BindingFlags.Instance | BindingFlags.Public);
-            MethodInfo method2 = typeof(StorageSettings_Enhanced).GetMethod("ExposeData", BindingFlags.Static | BindingFlags.Public);
-            bool flag = !Detours.TryDetourFromTo(method, method2);
-            if (!flag)
-            {
-                method = typeof(StoreUtility).GetMethod("NoStorageBlockersIn", BindingFlags.Static | BindingFlags.NonPublic);
-                method2 = typeof(StoreUtility_Detour).GetMethod("NoStorageBlockersIn", BindingFlags.Static | BindingFlags.Public);
-                bool flag2 = !Detours.TryDetourFromTo(method, method2);
-                if (!flag2)
-                {
-                    ITab_Storage_Detour.Init();
-                    method = typeof(ITab_Storage).GetMethod("FillTab", BindingFlags.Instance | BindingFlags.NonPublic);
-                    method2 = typeof(ITab_Storage_Detour).GetMethod("FillTab", BindingFlags.Static | BindingFlags.Public);
-                    bool flag3 = !Detours.TryDetourFromTo(method, method2);
-                    if (flag3)
-                    {
-                    }
-                }
-            }
+            //ToDo reactivate HaulingHysterisis
+           MethodInfo method = typeof(StorageSettings).GetMethod("ExposeData", BindingFlags.Instance | BindingFlags.Public);
+           MethodInfo method2 = typeof(StorageSettings_Enhanced).GetMethod("ExposeData", BindingFlags.Static | BindingFlags.Public);
+           bool flag = !Detours.TryDetourFromTo(method, method2);
+           if (!flag)
+           {
+               method = typeof(StoreUtility).GetMethod("NoStorageBlockersIn", BindingFlags.Static | BindingFlags.NonPublic);
+               method2 = typeof(StoreUtility_Detour).GetMethod("NoStorageBlockersIn", BindingFlags.Static | BindingFlags.Public);
+               bool flag2 = !Detours.TryDetourFromTo(method, method2);
+               if (!flag2)
+               {
+                   ITab_Storage_Detour.Init();
+                   method = typeof(ITab_Storage).GetMethod("FillTab", BindingFlags.Instance | BindingFlags.NonPublic);
+                   method2 = typeof(ITab_Storage_Detour).GetMethod("FillTab", BindingFlags.Static | BindingFlags.Public);
+                   bool flag3 = !Detours.TryDetourFromTo(method, method2);
+                   if (flag3)
+                   {
+                   }
+               }
+           }
 
 
           //FieldInfo field = typeof(Zone_Stockpile).GetField("StorageTab", BindingFlags.Static | BindingFlags.NonPublic);
