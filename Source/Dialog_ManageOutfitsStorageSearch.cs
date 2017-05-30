@@ -65,29 +65,31 @@ namespace StorageSearch
         [Detour(typeof(Dialog_ManageOutfits), bindingFlags = (BindingFlags.Instance | BindingFlags.Public))]
         public override void DoWindowContents(Rect inRect)
         {
-            var num = 0f;
-            var rect = new Rect(0f, 0f, 150f, 35f);
+            float num = 0f;
+            Rect rect = new Rect(0f, 0f, 150f, 35f);
             num += 150f;
-            if (Widgets.ButtonText(rect, "SelectOutfit".Translate(), true, false))
+            if (Widgets.ButtonText(rect, "SelectOutfit".Translate(), true, false, true))
             {
-                var list = new List<FloatMenuOption>();
-                foreach (var current in Current.Game.outfitDatabase.AllOutfits)
+                List<FloatMenuOption> list = new List<FloatMenuOption>();
+                foreach (Outfit current in Current.Game.outfitDatabase.AllOutfits)
                 {
-                    var localOut = current;
-                    list.Add(new FloatMenuOption(localOut.label, delegate { SelectedOutfit = localOut; },
-                        MenuOptionPriority.Default, null, null));
+                    Outfit localOut = current;
+                    list.Add(new FloatMenuOption(localOut.label, delegate
+                    {
+                        this.SelectedOutfit = localOut;
+                    }, MenuOptionPriority.Default, null, null, 0f, null, null));
                 }
                 Find.WindowStack.Add(new FloatMenu(list));
             }
             num += 10f;
-            var rect2 = new Rect(num, 0f, 150f, 35f);
+            Rect rect2 = new Rect(num, 0f, 150f, 35f);
             num += 150f;
-            if (Widgets.ButtonText(rect2, "NewOutfit".Translate(), true, false))
+            if (Widgets.ButtonText(rect2, "NewOutfit".Translate(), true, false, true))
             {
-                SelectedOutfit = Current.Game.outfitDatabase.MakeNewOutfit();
+                this.SelectedOutfit = Current.Game.outfitDatabase.MakeNewOutfit();
             }
             num += 10f;
-            var rect3 = new Rect(num, 0f, 150f, 35f);
+            Rect rect3 = new Rect(num, 0f, 150f, 35f);
             num += 150f;
             if (Widgets.ButtonText(rect3, "DeleteOutfit".Translate(), true, false, true))
             {
@@ -102,16 +104,16 @@ namespace StorageSearch
                         {
                             Messages.Message(acceptanceReport.Reason, MessageSound.RejectInput);
                         }
-                        else if (localOut == SelectedOutfit)
+                        else if (localOut == this.SelectedOutfit)
                         {
-                            SelectedOutfit = null;
+                            this.SelectedOutfit = null;
                         }
-                    }));
+                    }, MenuOptionPriority.Default, null, null, 0f, null, null));
                 }
                 Find.WindowStack.Add(new FloatMenu(list2));
             }
-            var rect4 = new Rect(0f, 40f, 300f, inRect.height - 40f - CloseButSize.y).ContractedBy(10f);
-            if (SelectedOutfit == null)
+            Rect rect4 = new Rect(0f, 40f, inRect.width, inRect.height - 40f - this.CloseButSize.y).ContractedBy(10f);
+            if (this.SelectedOutfit == null)
             {
                 GUI.color = Color.grey;
                 Text.Anchor = TextAnchor.MiddleCenter;
@@ -121,20 +123,19 @@ namespace StorageSearch
                 return;
             }
             GUI.BeginGroup(rect4);
-            var rect5 = new Rect(0f, 0f, 180f, 30f);
-            DoNameInputRect(rect5, ref SelectedOutfit.label, 30);
-
+            Rect rect5 = new Rect(0f, 0f, 200f, 30f);
+            Dialog_ManageOutfits.DoNameInputRect(rect5, ref this.SelectedOutfit.label);
             #region Storage Search
 
-            var clearSearchRect = new Rect(rect4.width - 20f, (29f - 14f) / 2f, 14f, 14f);
-            var shouldClearSearch = (Widgets.ButtonImage(clearSearchRect, Widgets.CheckboxOffTex));
+            Rect clearSearchRect = new Rect(rect4.width - 20f, (29f - 14f) / 2f, 14f, 14f);
+            bool shouldClearSearch = (Widgets.ButtonImage(clearSearchRect, Widgets.CheckboxOffTex));
 
-            var searchRect = new Rect(rect5.width + 10f, 0f, rect4.width - rect5.width - 10f, 29f);
-            var watermark = (searchText != string.Empty || isFocused) ? searchText : "Search";
+            Rect searchRect = new Rect(rect5.width + 10f, 0f, rect4.width - rect5.width - 10f, 29f);
+            string watermark = (searchText != string.Empty || isFocused) ? searchText : "Search";
 
 
-            var escPressed = (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Escape);
-            var clickedOutside = (!Mouse.IsOver(searchRect) && Event.current.type == EventType.MouseDown);
+            bool escPressed = (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Escape);
+            bool clickedOutside = (!Mouse.IsOver(searchRect) && Event.current.type == EventType.MouseDown);
 
             if (!isFocused)
             {
@@ -142,7 +143,7 @@ namespace StorageSearch
             }
 
             GUI.SetNextControlName("StorageSearchInput");
-            var searchInput = Widgets.TextField(searchRect, watermark);
+            string searchInput = Widgets.TextField(searchRect, watermark);
             GUI.color = Color.white;
 
             if (isFocused)
@@ -177,8 +178,10 @@ namespace StorageSearch
             #endregion
 
 
-            var rect6 = new Rect(0f, 40f, rect4.width, rect4.height - 45f - 10f);
 
+            Rect rect6 = new Rect(0f, 40f, 300f, rect4.height - 45f - 10f);
+            IEnumerable<SpecialThingFilterDef> forceHiddenFilters = this.HiddenSpecialThingFilters();
+            // Storage Search
             // fix for the filter
 
             if (_apparelGlobalFilter == null)
@@ -186,21 +189,16 @@ namespace StorageSearch
                 _apparelGlobalFilter = new ThingFilter();
                 _apparelGlobalFilter.SetAllow(ThingCategoryDefOf.Apparel, true);
             }
-            var parentFilter = _apparelGlobalFilter;
+            ThingFilter parentFilter = _apparelGlobalFilter;
 
-            //
-
-            HelperThingFilterUI.DoThingFilterConfigWindow(rect6, ref _scrollPosition, SelectedOutfit.filter, parentFilter, 8, null,null, searchText);
-
-            //ThingFilterUI.DoThingFilterConfigWindow(rect6, ref _scrollPosition, SelectedOutfit.filter, _apparelGlobalFilter, 16);
+            HelperThingFilterUI.DoThingFilterConfigWindow(rect6, ref _scrollPosition, this.SelectedOutfit.filter, parentFilter, 16, null, forceHiddenFilters, null, searchText);
+            //ThingFilterUI.DoThingFilterConfigWindow(rect6, ref _scrollPosition, this.SelectedOutfit.filter, _apparelGlobalFilter, 16, null, forceHiddenFilters, null);
             GUI.EndGroup();
+        }
 
-            rect4 = new Rect(300f, 40f, inRect.width - 300f, inRect.height - 40f - CloseButSize.y).ContractedBy(10f);
-            GUI.BeginGroup(rect4);
-
-            rect6 = new Rect(0f, 40f, rect4.width, rect4.height - 45f - 10f);
-            //     DoStatsInput(rect6, ref _scrollPositionStats, saveout.Stats);
-            GUI.EndGroup();
+        private IEnumerable<SpecialThingFilterDef> HiddenSpecialThingFilters()
+        {
+            yield return SpecialThingFilterDefOf.AllowNonDeadmansApparel;
         }
 
         public override void PreClose()
@@ -209,13 +207,13 @@ namespace StorageSearch
             CheckSelectedOutfitHasName();
         }
 
-        private static void DoNameInputRect(Rect rect, ref string name, int maxLength)
-        {
-            var text = Widgets.TextField(rect, name);
-            if (text.Length <= maxLength && ValidNameRegex.IsMatch(text))
-            {
-                name = text;
-            }
-        }
+     // private static void DoNameInputRect(Rect rect, ref string name, int maxLength)
+     // {
+     //     var text = Widgets.TextField(rect, name);
+     //     if (text.Length <= maxLength && ValidNameRegex.IsMatch(text))
+     //     {
+     //         name = text;
+     //     }
+     // }
     }
 }

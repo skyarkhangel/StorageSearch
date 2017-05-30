@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-  <name>Storage Search A16</name>
+  <name>Storage Search A17</name>
   <author>Killface</author>
-  <targetVersion>0.16.1385</targetVersion>
+  <targetVersion>0.17.1535</targetVersion>
   <description>
     This Mod allows you to search by name in storage filter tab. Original A12 version by meonester.
-    Updated for A16 by Killface.
+    Updated for A17 by Killface.
 
     Includes Hauling Hysteresis by Vendan https://ludeon.com/forums/index.php?topic=26958.0
 

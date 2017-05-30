@@ -9,7 +9,7 @@ namespace HaulingHysteresis
 
         public void ExposeData()
         {
-            Scribe_Values.LookValue<float>(ref this.FillPercent, "fillPercent", 100f, false);
+            Scribe_Values.Look<float>(ref this.FillPercent, "fillPercent", 100f, false);
         }
     }
 }

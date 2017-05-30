@@ -48,10 +48,9 @@
     <Compile Include="NewFolder1\StorageSettings_Enhanced.cs" />
     <Compile Include="NewFolder1\StorageSettings_Hysteresis.cs" />
     <Compile Include="NewFolder1\StorageSettings_Mapping.cs" />
-    <Compile Include="_ITab_Bills.cs" />
     <Compile Include="Dialog_ManageOutfitsStorageSearch.cs" />
     <Compile Include="SpecialThingFilterWorker_Fresh.cs" />
-    <Compile Include="DetourAttribute.cs" />
+    <Compile Include="NoCCL\DetourAttribute.cs" />
     <Compile Include="HelperThingFilterUI.cs" />
     <Compile Include="Injector_StorageSearch.cs" />
     <Compile Include="ITab_Storage_Detour.cs" />
@@ -79,9 +78,6 @@
     <Content Include="..\About\About.xml" />
     <Content Include="..\About\preview.png">
       <Link>preview.png</Link>
-    </Content>
-    <Content Include="..\Defs\ModHelperDefs\ModHelper.xml">
-      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

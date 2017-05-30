@@ -56,7 +56,6 @@ namespace RimWorld
         public static void FillTab(ITab_Storage tab)
         {
             IStoreSettingsParent storeSettingsParent = (IStoreSettingsParent)ITab_Storage_Detour.SelStoreSettingsParent.GetValue(tab, null);
-            Debug.Log(storeSettingsParent);
             StorageSettings settings = storeSettingsParent.GetStoreSettings();
             Rect position = new Rect(0f, 0f, WinSize.x, WinSize.y).ContractedBy(10f);
             GUI.BeginGroup(position);
@@ -130,7 +129,7 @@ namespace RimWorld
 			Rect rect2 = new Rect(0f, 35f, position.width, position.height - 70f);
 
             Vector2 vector = (Vector2)ITab_Storage_Detour.ScrollPosition.GetValue(tab);
-            HelperThingFilterUI.DoThingFilterConfigWindow(rect2, ref vector, settings.filter, parentFilter, 8, null, null, searchText);
+            HelperThingFilterUI.DoThingFilterConfigWindow(rect2, ref vector, settings.filter, parentFilter, 8, null, null, null, searchText);
             ITab_Storage_Detour.ScrollPosition.SetValue(tab, vector);
 
             // from Hauling Hysterisis
