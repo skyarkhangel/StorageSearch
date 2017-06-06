@@ -27,30 +27,29 @@ namespace RimWorld
         private const float TopAreaHeight = 35f;
 
 
-      //private static readonly Vector2 WinSize = new Vector2(300f, 480f);
+      // private static readonly Vector2 WinSize = new Vector2(300f, 480f);
 
-      //private IStoreSettingsParent SelStoreSettingsParent
-      //{
-      //    get
-      //    {
-      //        return (IStoreSettingsParent)SelObject;
-      //    }
-      //}
+      // private IStoreSettingsParent SelStoreSettingsParent
+      // {
+      // get
+      // {
+      // return (IStoreSettingsParent)SelObject;
+      // }
+      // }
 
-      //public override bool IsVisible
-      //{
-      //    get
-      //    {
-      //        return SelStoreSettingsParent.StorageTabVisible;
-      //    }
-      //}
+      // public override bool IsVisible
+      // {
+      // get
+      // {
+      // return SelStoreSettingsParent.StorageTabVisible;
+      // }
+      // }
 
-        //StorageSearch
-        private static string searchText = "";
+        // StorageSearch
+        private static string searchText = string.Empty;
 
         private static bool isFocused;
 
-        //
 
 
         public static void FillTab(ITab_Storage tab)
@@ -76,18 +75,19 @@ namespace RimWorld
                         }, MenuOptionPriority.Default, null, null, 0f, null));
                     }
                 }
+
                 Find.WindowStack.Add(new FloatMenu(list));
             }
 
-            #region StorageSearch
-            var clearSearchRect = new Rect(position.width - 33f, (29f - 14f) / 2f, 14f, 14f);
-            var shouldClearSearch = (Widgets.ButtonImage(clearSearchRect, Widgets.CheckboxOffTex));
+            
+            Rect clearSearchRect = new Rect(position.width - 33f, (29f - 14f) / 2f, 14f, 14f);
+            bool shouldClearSearch = Widgets.ButtonImage(clearSearchRect, Widgets.CheckboxOffTex);
 
-            var searchRect = new Rect(165f, 0f, position.width - 160f - 20f, 29f);
-            var watermark = (searchText != string.Empty || isFocused) ? searchText : "Search";
+            Rect searchRect = new Rect(165f, 0f, position.width - 160f - 20f, 29f);
+            string watermark = (searchText != string.Empty || isFocused) ? searchText : "Search";
 
-            var escPressed = (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Escape);
-            var clickedOutside = (!Mouse.IsOver(searchRect) && Event.current.type == EventType.MouseDown);
+            bool escPressed = Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Escape;
+            bool clickedOutside = !Mouse.IsOver(searchRect) && Event.current.type == EventType.MouseDown;
 
             if (!isFocused)
             {
@@ -95,7 +95,7 @@ namespace RimWorld
             }
 
             GUI.SetNextControlName("StorageSearchInput");
-            var searchInput = Widgets.TextField(searchRect, watermark);
+            string searchInput = Widgets.TextField(searchRect, watermark);
             GUI.color = Color.white;
 
             if (isFocused)
@@ -117,7 +117,7 @@ namespace RimWorld
             {
                 searchText = string.Empty;
             }
-            #endregion
+            
 
 
             UIHighlighter.HighlightOpportunity(rect, "StoragePriority");
@@ -126,6 +126,7 @@ namespace RimWorld
             {
                 parentFilter = storeSettingsParent.GetParentStoreSettings().filter;
             }
+
 			Rect rect2 = new Rect(0f, 35f, position.width, position.height - 70f);
 
             Vector2 vector = (Vector2)ITab_Storage_Detour.ScrollPosition.GetValue(tab);
@@ -140,13 +141,13 @@ namespace RimWorld
             {
                 storageSettings_Hysteresis = new StorageSettings_Hysteresis();
             }
+
             storageSettings_Hysteresis.FillPercent = Widgets.HorizontalSlider(rect3.LeftPart(0.8f), storageSettings_Hysteresis.FillPercent, 0f, 100f, false, "Refill cells less then");
             Widgets.Label(rect3.RightPart(0.2f), storageSettings_Hysteresis.FillPercent.ToString("N0") + "%");
             StorageSettings_Mapping.Set(settings, storageSettings_Hysteresis);
             PlayerKnowledgeDatabase.KnowledgeDemonstrated(ConceptDefOf.StorageTab, KnowledgeAmount.FrameDisplayed);
 
 
-            //
             GUI.EndGroup();
         }
     }

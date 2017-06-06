@@ -12,6 +12,7 @@ namespace StorageSearch
             {
                 return false;
             }
+
             CompRottable comp = thingWithComps.GetComp<CompRottable>();
             return comp != null && comp.Stage == RotStage.Fresh;
         }

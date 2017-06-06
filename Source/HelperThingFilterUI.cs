@@ -34,11 +34,13 @@ namespace StorageSearch
             {
                 filter.SetDisallowAll(forceHiddenDefs, forceHiddenFilters);
             }
+
             Rect rect3 = new Rect(rect2.xMax + 1f, rect2.y, rect.xMax - 1f - (rect2.xMax + 1f), 24f);
             if (Widgets.ButtonText(rect3, "AllowAll".Translate(), true, false, true))
             {
                 filter.SetAllowAll(parentFilter);
             }
+
             Text.Font = GameFont.Small;
             rect.yMin = rect2.yMax;
             Rect viewRect = new Rect(0f, 0f, rect.width - 16f, viewHeight);
@@ -56,29 +58,33 @@ namespace StorageSearch
                 node = parentFilter.DisplayRootCategory;
             }
 
-            #region StorageSearch
+            
 
             if (filterText != null && filterText.Length > 0)
             {
-                var rootNode = new TreeNode_ThingCategory(new ThingCategoryDef());
+                TreeNode_ThingCategory rootNode = new TreeNode_ThingCategory(new ThingCategoryDef());
 
                 node.catDef.DescendantThingDefs.Where(td => td.label.ToLower().Contains(filterText.ToLower()));
 
-                foreach (ThingDef currentThing in node.catDef.DescendantThingDefs.Where(td => td.label.ToLower().Contains(filterText.ToLower())))
+                foreach (ThingDef currentThing in node.catDef.DescendantThingDefs)
                 {
-                    rootNode.catDef.childThingDefs.Add(currentThing);
+                    if (currentThing.label.ToLower().Contains(filterText.ToLower()))
+                    {
+                        rootNode.catDef.childThingDefs.Add(currentThing);
+                    }
                 }
 
                 node = rootNode;
             }
-            #endregion
+            
 
             listing_TreeThingFilter.DoCategoryChildren(node, 0, openMask, true);
             listing_TreeThingFilter.End();
             if (Event.current.type == EventType.Layout)
             {
-                viewHeight = num3 + listing_TreeThingFilter.CurHeight + 90f;
+                viewHeight = num3 + listing_TreeThingFilter.CurHeight + ExtraViewHeight;
             }
+
             Widgets.EndScrollView();
         }
 
@@ -88,11 +94,12 @@ namespace StorageSearch
             {
                 return;
             }
-            Rect rect = new Rect(20f, y, width - 20f, 26f);
+
+            Rect rect = new Rect(SliderTab, y, width - SliderTab, SliderHeight);
             FloatRange allowedHitPointsPercents = filter.AllowedHitPointsPercents;
             Widgets.FloatRange(rect, 1, ref allowedHitPointsPercents, 0f, 1f, "HitPoints", ToStringStyle.PercentZero);
             filter.AllowedHitPointsPercents = allowedHitPointsPercents;
-            y += 26f;
+            y += SliderHeight;
             y += 5f;
             Text.Font = GameFont.Small;
         }
@@ -103,11 +110,12 @@ namespace StorageSearch
             {
                 return;
             }
-            Rect rect = new Rect(20f, y, width - 20f, 26f);
+
+            Rect rect = new Rect(SliderTab, y, width - SliderTab, SliderHeight);
             QualityRange allowedQualityLevels = filter.AllowedQualityLevels;
             Widgets.QualityRange(rect, 2, ref allowedQualityLevels);
             filter.AllowedQualityLevels = allowedQualityLevels;
-            y += 26f;
+            y += SliderHeight;
             y += 5f;
             Text.Font = GameFont.Small;
         }

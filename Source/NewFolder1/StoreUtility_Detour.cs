@@ -1,6 +1,8 @@
-﻿using RimWorld;
-using System;
+﻿using System;
 using System.Collections.Generic;
+
+using RimWorld;
+
 using Verse;
 
 namespace HaulingHysteresis
@@ -15,6 +17,7 @@ namespace HaulingHysteresis
             {
                 num = StorageSettings_Mapping.Get(c.GetSlotGroup(map).Settings).FillPercent;
             }
+
             List<Thing> list = map.thingGrid.ThingsListAt(c); int i = 0;
             bool result;
             while (i < list.Count)
@@ -29,6 +32,7 @@ namespace HaulingHysteresis
                         result = false;
                         return result;
                     }
+
                     bool flag3 = thing2.stackCount >= thing.def.stackLimit || (float)thing2.stackCount >= (float)thing.def.stackLimit * (num / 100f);
                     if (flag3)
                     {
@@ -36,6 +40,7 @@ namespace HaulingHysteresis
                         return result;
                     }
                 }
+
                 bool flag4 = thing2.def.entityDefToBuild != null && thing2.def.entityDefToBuild.passability > Traversability.Standable;
                 if (flag4)
                 {
@@ -49,10 +54,13 @@ namespace HaulingHysteresis
                         i++;
                         continue;
                     }
+
                     result = false;
                 }
+
                 return result;
             }
+
             result = true;
             return result;
         }

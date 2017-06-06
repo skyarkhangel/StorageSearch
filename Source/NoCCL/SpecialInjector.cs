@@ -27,10 +27,11 @@ namespace StorageSearch.NoCCL
 
         private static void Inject()
         {
-            var injector = new Injector_StorageSearch();
+            Injector_StorageSearch injector = new Injector_StorageSearch();
             if (injector.Inject()) Log.Message(AssemblyName + " injected.");
             else Log.Error(AssemblyName + " failed to get injected properly.");
         }
+
 #endif
     }
 }

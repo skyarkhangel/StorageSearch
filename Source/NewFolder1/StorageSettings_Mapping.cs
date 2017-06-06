@@ -1,6 +1,7 @@
-﻿using RimWorld;
-using System;
+﻿using System;
 using System.Collections.Generic;
+
+using RimWorld;
 
 namespace HaulingHysteresis
 {
@@ -20,6 +21,7 @@ namespace HaulingHysteresis
             {
                 result = new StorageSettings_Hysteresis();
             }
+
             return result;
         }
 

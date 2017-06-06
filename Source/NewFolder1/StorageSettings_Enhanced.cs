@@ -1,6 +1,8 @@
-﻿using RimWorld;
-using System;
+﻿using System;
 using System.Reflection;
+
+using RimWorld;
+
 using Verse;
 
 namespace HaulingHysteresis

@@ -6,6 +6,7 @@ using Verse;
 namespace StorageSearch.NoCCL
 {
 #if NoCCL
+
     /// <summary>
     /// For when CCL is not available
     /// </summary>
