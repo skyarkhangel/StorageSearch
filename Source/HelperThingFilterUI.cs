@@ -58,9 +58,7 @@ namespace StorageSearch
                 node = parentFilter.DisplayRootCategory;
             }
 
-            
-
-            if (filterText != null && filterText.Length > 0)
+            if (!string.IsNullOrEmpty(filterText))
             {
                 TreeNode_ThingCategory rootNode = new TreeNode_ThingCategory(new ThingCategoryDef());
 
@@ -76,7 +74,7 @@ namespace StorageSearch
 
                 node = rootNode;
             }
-            
+
 
             listing_TreeThingFilter.DoCategoryChildren(node, 0, openMask, true);
             listing_TreeThingFilter.End();
