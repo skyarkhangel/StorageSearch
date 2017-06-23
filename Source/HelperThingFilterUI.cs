@@ -69,12 +69,13 @@ namespace StorageSearch
                     if (currentThing.label.ToLower().Contains(filterText.ToLower()))
                     {
                         rootNode.catDef.childThingDefs.Add(currentThing);
+                        if (!rootNode.catDef.childCategories.Contains(currentThing.FirstThingCategory))
+                            rootNode.catDef.childCategories.Add(currentThing.FirstThingCategory);
                     }
                 }
 
                 node = rootNode;
             }
-
 
             listing_TreeThingFilter.DoCategoryChildren(node, 0, openMask, true);
             listing_TreeThingFilter.End();

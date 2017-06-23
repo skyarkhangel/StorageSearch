@@ -27,23 +27,23 @@ namespace RimWorld
         private const float TopAreaHeight = 35f;
 
 
-      // private static readonly Vector2 WinSize = new Vector2(300f, 480f);
+        // private static readonly Vector2 WinSize = new Vector2(300f, 480f);
 
-      // private IStoreSettingsParent SelStoreSettingsParent
-      // {
-      // get
-      // {
-      // return (IStoreSettingsParent)SelObject;
-      // }
-      // }
+        // private IStoreSettingsParent SelStoreSettingsParent
+        // {
+        // get
+        // {
+        // return (IStoreSettingsParent)SelObject;
+        // }
+        // }
 
-      // public override bool IsVisible
-      // {
-      // get
-      // {
-      // return SelStoreSettingsParent.StorageTabVisible;
-      // }
-      // }
+        // public override bool IsVisible
+        // {
+        // get
+        // {
+        // return SelStoreSettingsParent.StorageTabVisible;
+        // }
+        // }
 
         // StorageSearch
         private static string searchText = string.Empty;
@@ -69,17 +69,21 @@ namespace RimWorld
                     if (flag2)
                     {
                         StoragePriority localPr = (StoragePriority)current;
-                        list.Add(new FloatMenuOption(localPr.Label().CapitalizeFirst(), delegate
-                        {
-                            settings.Priority = localPr;
-                        }, MenuOptionPriority.Default, null, null, 0f, null));
+                        list.Add(
+                            new FloatMenuOption(
+                                localPr.Label().CapitalizeFirst(),
+                                delegate { settings.Priority = localPr; },
+                                MenuOptionPriority.Default,
+                                null,
+                                null,
+                                0f,
+                                null));
                     }
                 }
 
                 Find.WindowStack.Add(new FloatMenu(list));
             }
 
-            
             Rect clearSearchRect = new Rect(position.width - 33f, (29f - 14f) / 2f, 14f, 14f);
             bool shouldClearSearch = Widgets.ButtonImage(clearSearchRect, Widgets.CheckboxOffTex);
 
@@ -117,7 +121,7 @@ namespace RimWorld
             {
                 searchText = string.Empty;
             }
-            
+
 
 
             UIHighlighter.HighlightOpportunity(rect, "StoragePriority");
@@ -127,7 +131,7 @@ namespace RimWorld
                 parentFilter = storeSettingsParent.GetParentStoreSettings().filter;
             }
 
-			Rect rect2 = new Rect(0f, 35f, position.width, position.height - 70f);
+            Rect rect2 = new Rect(0f, 35f, position.width, position.height - 70f);
 
             Vector2 vector = (Vector2)ITab_Storage_Detour.ScrollPosition.GetValue(tab);
             HelperThingFilterUI.DoThingFilterConfigWindow(rect2, ref vector, settings.filter, parentFilter, 8, null, null, null, searchText);
