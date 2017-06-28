@@ -9,11 +9,11 @@ namespace StorageSearch
 
         public static StorageSettings_Hysteresis Get(StorageSettings storage)
         {
-            bool flag = StorageSettings_Mapping.mapping.ContainsKey(storage);
+            bool flag = mapping.ContainsKey(storage);
             StorageSettings_Hysteresis result;
             if (flag)
             {
-                result = StorageSettings_Mapping.mapping[storage];
+                result = mapping[storage];
             }
             else
             {
@@ -25,14 +25,14 @@ namespace StorageSearch
 
         public static void Set(StorageSettings storage, StorageSettings_Hysteresis value)
         {
-            bool flag = StorageSettings_Mapping.mapping.ContainsKey(storage);
+            bool flag = mapping.ContainsKey(storage);
             if (flag)
             {
-                StorageSettings_Mapping.mapping[storage] = value;
+                mapping[storage] = value;
             }
             else
             {
-                StorageSettings_Mapping.mapping.Add(storage, value);
+                mapping.Add(storage, value);
             }
         }
     }

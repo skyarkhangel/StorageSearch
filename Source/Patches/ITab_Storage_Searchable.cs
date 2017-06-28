@@ -13,13 +13,22 @@ namespace StorageSearch
     [HarmonyPatch(typeof(ITab_Storage), "FillTab")]
     public class ITab_Storage_Searchable
     {
-        static ITab_Storage_Searchable() {
-            SelStoreSettingsParent = typeof(ITab_Storage).GetProperty("SelStoreSettingsParent", BindingFlags.Instance | BindingFlags.NonPublic);
-            ScrollPosition = typeof(ITab_Storage).GetField("scrollPosition", BindingFlags.Instance | BindingFlags.NonPublic);
+        static ITab_Storage_Searchable()
+        {
+            SelStoreSettingsParent = typeof(ITab_Storage).GetProperty(
+                "SelStoreSettingsParent",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            ScrollPosition = typeof(ITab_Storage).GetField(
+                "scrollPosition",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+
             // TODO: speed up access to private fields (Reflection is *slow*). Maybe wait for @pardeike to add field/property accessors to Harmony (see https://github.com/pardeike/Harmony/issues/20 discussion) ???
-
-
-            miFillTab = typeof(ITab_Storage_Searchable).GetMethod(nameof(FillTab), BindingFlags.Public | BindingFlags.Static, null, new[] {typeof(ITab_Storage)}, null);
+            miFillTab = typeof(ITab_Storage_Searchable).GetMethod(
+                nameof(FillTab),
+                BindingFlags.Public | BindingFlags.Static,
+                null,
+                new[] { typeof(ITab_Storage) },
+                null);
         }
 
         private static readonly PropertyInfo SelStoreSettingsParent;
@@ -39,7 +48,6 @@ namespace StorageSearch
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instr) {
             // for now, just replace the whole original method with an invocation of our own code
-
             return new[] {
                         new CodeInstruction(OpCodes.Ldarg_0),
                         new CodeInstruction(OpCodes.Call, miFillTab),
@@ -53,7 +61,7 @@ namespace StorageSearch
         public static void FillTab(ITab_Storage tab)
         {           
 
-            IStoreSettingsParent storeSettingsParent = (IStoreSettingsParent)ITab_Storage_Searchable.SelStoreSettingsParent.GetValue(tab, null);
+            IStoreSettingsParent storeSettingsParent = (IStoreSettingsParent)SelStoreSettingsParent.GetValue(tab, null);
             StorageSettings settings = storeSettingsParent.GetStoreSettings();
             Rect position = new Rect(0f, 0f, WinSize.x, WinSize.y).ContractedBy(10f);
             GUI.BeginGroup(position);
@@ -132,9 +140,9 @@ namespace StorageSearch
 
             Rect rect2 = new Rect(0f, 35f, position.width, position.height - 70f);
 
-            Vector2 vector = (Vector2)ITab_Storage_Searchable.ScrollPosition.GetValue(tab);
+            Vector2 vector = (Vector2)ScrollPosition.GetValue(tab);
             HelperThingFilterUI.DoThingFilterConfigWindow(rect2, ref vector, settings.filter, parentFilter, 8, null, null, null, searchText);
-            ITab_Storage_Searchable.ScrollPosition.SetValue(tab, vector);
+            ScrollPosition.SetValue(tab, vector);
 
             // from Hauling Hysterisis
             Rect rect3 = new Rect(0f, position.height - 30f, position.width, 30f);

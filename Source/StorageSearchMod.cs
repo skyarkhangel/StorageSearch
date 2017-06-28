@@ -13,7 +13,7 @@ namespace StorageSearch
     {
         public StorageSearchMod(ModContentPack content) : base(content)
         {
-            GetSettings<Settings>();
+            this.GetSettings<Settings>();
         }
 
         public override string SettingsCategory() {
@@ -29,7 +29,7 @@ namespace StorageSearch
         public class Injector {
             static Injector()
             {
-                var harmonyInstance = HarmonyInstance.Create("StorageSearch");
+                HarmonyInstance harmonyInstance = HarmonyInstance.Create("StorageSearch");
                 harmonyInstance.PatchAll(Assembly.GetExecutingAssembly());              // just use all [HarmonyPatch] decorated classes       
                 
                 Log.Message("StorageSearch injected...");         

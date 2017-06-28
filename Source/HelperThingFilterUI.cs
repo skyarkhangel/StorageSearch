@@ -70,8 +70,13 @@ namespace StorageSearch
                     {
                         rootNode.catDef.childThingDefs.Add(currentThing);
 
-                        if (Settings.IncludeParentCategory && !rootNode.catDef.childCategories.Contains(currentThing.FirstThingCategory))
-                            rootNode.catDef.childCategories.Add(currentThing.FirstThingCategory);
+                        if (Settings.IncludeParentCategory)
+                        {
+                            if (!rootNode.catDef.childCategories.Contains(currentThing.FirstThingCategory))
+                            {
+                                rootNode.catDef.childCategories.Add(currentThing.FirstThingCategory);
+                            }
+                        }
                     }
                 }
 

@@ -37,14 +37,14 @@
     <LangVersion>default</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="LanguageDefs.cs" />
+    <Compile Include="Languages\LanguageDefs.cs" />
     <Compile Include="Patches\ITab_Storage_Searchable.cs" />
     <Compile Include="Patches\StorageSettings_ExposeData.cs" />
     <Compile Include="Patches\StoreUtility_NoStorageBlockersIn.cs" />
     <Compile Include="StorageSearchMod.cs" />
     <Compile Include="StorageSearchMod.Settings.cs" />
-    <Compile Include="StorageSettings_Hysteresis.cs" />
-    <Compile Include="StorageSettings_Mapping.cs" />
+    <Compile Include="HaulingHysterisis\StorageSettings_Hysteresis.cs" />
+    <Compile Include="HaulingHysterisis\StorageSettings_Mapping.cs" />
     <None Include="Dialog_ManageOutfitsStorageSearch.cs" />
     <Compile Include="SpecialThingFilterWorker_Fresh.cs" />
     <Compile Include="HelperThingFilterUI.cs" />
@@ -68,9 +68,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\About\About.xml" />
+    <Content Include="..\About\About.xml">
+      <Link>About\About.xml</Link>
+    </Content>
     <Content Include="..\About\preview.png">
-      <Link>preview.png</Link>
+      <Link>About\preview.png</Link>
+    </Content>
+    <Content Include="..\Languages\English\Keyed\Keys.xml">
+      <Link>Languages\English\Keyed\Keys.xml</Link>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
