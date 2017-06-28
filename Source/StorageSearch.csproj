@@ -24,6 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -33,33 +34,26 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'noCCL|AnyCPU'">
-    <OutputPath>..\Assemblies\</OutputPath>
-    <DefineConstants>NoCCL</DefineConstants>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Optimize>false</Optimize>
-    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="NewFolder1\StoreUtility_Detour.cs" />
-    <Compile Include="NewFolder1\StorageSettings_Enhanced.cs" />
-    <Compile Include="NewFolder1\StorageSettings_Hysteresis.cs" />
-    <Compile Include="NewFolder1\StorageSettings_Mapping.cs" />
+    <Compile Include="Patches\ITab_Storage_Searchable.cs" />
+    <Compile Include="Patches\StorageSettings_ExposeData.cs" />
+    <Compile Include="Patches\StoreUtility_NoStorageBlockersIn.cs" />
+    <Compile Include="StorageSearchMod.cs" />
+    <Compile Include="StorageSettings_Hysteresis.cs" />
+    <Compile Include="StorageSettings_Mapping.cs" />
     <None Include="Dialog_ManageOutfitsStorageSearch.cs" />
     <Compile Include="SpecialThingFilterWorker_Fresh.cs" />
-    <Compile Include="NoCCL\DetourAttribute.cs" />
     <Compile Include="HelperThingFilterUI.cs" />
-    <Compile Include="Injector_StorageSearch.cs" />
-    <Compile Include="ITab_Storage_Detour.cs" />
-    <Compile Include="NoCCL\Detours.cs" />
-    <Compile Include="NoCCL\SpecialInjector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="0Harmony, Version=1.0.9.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Assemblies\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>$(RimworldDataPath)\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
