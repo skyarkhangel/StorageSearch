@@ -1,7 +1,6 @@
-﻿using System;
-using Verse;
+﻿using Verse;
 
-namespace HaulingHysteresis
+namespace StorageSearch
 {
     public class StorageSettings_Hysteresis : IExposable
     {

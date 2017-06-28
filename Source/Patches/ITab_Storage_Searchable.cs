@@ -1,60 +1,59 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using HaulingHysteresis;
-using StorageSearch;
+using System.Reflection.Emit;
+using Harmony;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
-namespace RimWorld
+namespace StorageSearch
 {
-    public class ITab_Storage_Detour
+    [HarmonyPatch(typeof(ITab_Storage), "FillTab")]
+    public class ITab_Storage_Searchable
     {
+        static ITab_Storage_Searchable() {
+            SelStoreSettingsParent = typeof(ITab_Storage).GetProperty("SelStoreSettingsParent", BindingFlags.Instance | BindingFlags.NonPublic);
+            ScrollPosition = typeof(ITab_Storage).GetField("scrollPosition", BindingFlags.Instance | BindingFlags.NonPublic);
+            // TODO: speed up access to private fields (Reflection is *slow*). Maybe wait for @pardeike to add field/property accessors to Harmony (see https://github.com/pardeike/Harmony/issues/20 discussion) ???
 
-        private static PropertyInfo SelStoreSettingsParent;
 
-        private static FieldInfo ScrollPosition;
+            miFillTab = typeof(ITab_Storage_Searchable).GetMethod(nameof(FillTab), BindingFlags.Public | BindingFlags.Static, null, new[] {typeof(ITab_Storage)}, null);
+        }
+
+        private static readonly PropertyInfo SelStoreSettingsParent;
+        private static readonly FieldInfo ScrollPosition;
+        private static readonly MethodInfo miFillTab;
 
         private static readonly Vector2 WinSize = new Vector2(300f, 480f);
 
-        public static void Init()
-        {
-            ITab_Storage_Detour.SelStoreSettingsParent = typeof(ITab_Storage).GetProperty("SelStoreSettingsParent", BindingFlags.Instance | BindingFlags.NonPublic);
-            ITab_Storage_Detour.ScrollPosition = typeof(ITab_Storage).GetField("scrollPosition", BindingFlags.Instance | BindingFlags.NonPublic);
-        }
-
         private const float TopAreaHeight = 35f;
 
-
-        // private static readonly Vector2 WinSize = new Vector2(300f, 480f);
-
-        // private IStoreSettingsParent SelStoreSettingsParent
-        // {
-        // get
-        // {
-        // return (IStoreSettingsParent)SelObject;
-        // }
-        // }
-
-        // public override bool IsVisible
-        // {
-        // get
-        // {
-        // return SelStoreSettingsParent.StorageTabVisible;
-        // }
-        // }
 
         // StorageSearch
         private static string searchText = string.Empty;
 
         private static bool isFocused;
 
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instr) {
+            // for now, just replace the whole original method with an invocation of our own code
+
+            return new[] {
+                        new CodeInstruction(OpCodes.Ldarg_0),
+                        new CodeInstruction(OpCodes.Call, miFillTab),
+                        new CodeInstruction(OpCodes.Ret)
+                   };
+
+            // IL code for <c>ITab_Storage_Searchable.FillTab(this)</c>
+        }
 
 
         public static void FillTab(ITab_Storage tab)
-        {
-            IStoreSettingsParent storeSettingsParent = (IStoreSettingsParent)ITab_Storage_Detour.SelStoreSettingsParent.GetValue(tab, null);
+        {           
+
+            IStoreSettingsParent storeSettingsParent = (IStoreSettingsParent)ITab_Storage_Searchable.SelStoreSettingsParent.GetValue(tab, null);
             StorageSettings settings = storeSettingsParent.GetStoreSettings();
             Rect position = new Rect(0f, 0f, WinSize.x, WinSize.y).ContractedBy(10f);
             GUI.BeginGroup(position);
@@ -133,9 +132,9 @@ namespace RimWorld
 
             Rect rect2 = new Rect(0f, 35f, position.width, position.height - 70f);
 
-            Vector2 vector = (Vector2)ITab_Storage_Detour.ScrollPosition.GetValue(tab);
+            Vector2 vector = (Vector2)ITab_Storage_Searchable.ScrollPosition.GetValue(tab);
             HelperThingFilterUI.DoThingFilterConfigWindow(rect2, ref vector, settings.filter, parentFilter, 8, null, null, null, searchText);
-            ITab_Storage_Detour.ScrollPosition.SetValue(tab, vector);
+            ITab_Storage_Searchable.ScrollPosition.SetValue(tab, vector);
 
             // from Hauling Hysterisis
             Rect rect3 = new Rect(0f, position.height - 30f, position.width, 30f);

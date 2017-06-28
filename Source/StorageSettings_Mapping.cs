@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿using System.Collections.Generic;
 using RimWorld;
 
-namespace HaulingHysteresis
+namespace StorageSearch
 {
     internal class StorageSettings_Mapping
     {
