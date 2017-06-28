@@ -37,10 +37,12 @@
     <LangVersion>default</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="LanguageDefs.cs" />
     <Compile Include="Patches\ITab_Storage_Searchable.cs" />
     <Compile Include="Patches\StorageSettings_ExposeData.cs" />
     <Compile Include="Patches\StoreUtility_NoStorageBlockersIn.cs" />
     <Compile Include="StorageSearchMod.cs" />
+    <Compile Include="StorageSearchMod.Settings.cs" />
     <Compile Include="StorageSettings_Hysteresis.cs" />
     <Compile Include="StorageSettings_Mapping.cs" />
     <None Include="Dialog_ManageOutfitsStorageSearch.cs" />
