@@ -28,6 +28,14 @@ namespace StorageSearch {
 			/// Get's the translation key for '<em>Include an item's first parent category in the storage filter.</em>'
 			/// </summary>
 			public const string @StorageSearch_IncludeParentCategoryTip = "StorageSearch.IncludeParentCategoryTip";
+			/// <summary>
+			/// Get's the translation key for '<em>Refill cells less than</em>'
+			/// </summary>
+			public const string @HaulingHysteresis_RefillCellsLabel = "HaulingHysteresis.RefillCellsLabel";
+			/// <summary>
+			/// Get's the translation key for '<em>Search</em>'
+			/// </summary>
+			public const string @StorageSearch_SearchWatermark = "StorageSearch.SearchWatermark";
 		}
 	}
 }

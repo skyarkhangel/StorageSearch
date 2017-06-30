@@ -22,7 +22,7 @@ namespace StorageSearch {
             };
             list.Begin(rect);
 
-            list.CheckboxLabeled(GeneratedDefs.Keys.StorageSearc_IncludeParentCategory.Translate(), ref IncludeParentCategory, GeneratedDefs.Keys.StorageSearc_IncludeParentCategoryTip.Translate());
+            list.CheckboxLabeled(GeneratedDefs.Keys.StorageSearch_IncludeParentCategory.Translate(), ref IncludeParentCategory, GeneratedDefs.Keys.StorageSearch_IncludeParentCategoryTip.Translate());
 
             list.End();
         }

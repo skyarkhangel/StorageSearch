@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
-    <StorageSearch>Storage Search</StorageSearch>
+  <StorageSearch>Storage Search</StorageSearch>
     
-    <!-- Settings -->
-    <StorageSearch.IncludeParentCategory>Show parent category</StorageSearch.IncludeParentCategory>
-    <StorageSearch.IncludeParentCategoryTip>Include an item's first parent category in the storage filter.</StorageSearch.IncludeParentCategoryTip>    
+  <!-- Settings -->
+  <StorageSearch.IncludeParentCategory>Show parent category</StorageSearch.IncludeParentCategory>
+  <StorageSearch.IncludeParentCategoryTip>Include an item's first parent category in the storage filter.</StorageSearch.IncludeParentCategoryTip>
+
+  <!-- ThingFilter controls-->
+  <HaulingHysteresis.RefillCellsLabel>Refill cells less than</HaulingHysteresis.RefillCellsLabel>
+  <StorageSearch.SearchWatermark>Search</StorageSearch.SearchWatermark>
+  
 </LanguageData>
