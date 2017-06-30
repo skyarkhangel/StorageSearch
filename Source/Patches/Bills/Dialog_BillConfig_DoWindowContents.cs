@@ -1,5 +1,7 @@
 ﻿using Harmony;
 using RimWorld;
+using UnityEngine;
+using Verse;
 
 namespace StorageSearch {
     [HarmonyPatch(typeof(Dialog_BillConfig), nameof(Dialog_BillConfig.DoWindowContents))]
@@ -7,7 +9,10 @@ namespace StorageSearch {
     {
 
         [HarmonyPrefix]
-        public static void Before_DoWindowContents() {
+        public static void Before_DoWindowContents(Rect inRect) {
+            if (!Settings.EnableCraftingFilter)
+                return;
+
             ThingFilterUI_DoThingFilterConfigWindow.showSearchCount++;
         }
     }

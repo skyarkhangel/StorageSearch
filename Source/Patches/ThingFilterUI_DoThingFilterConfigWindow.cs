@@ -96,10 +96,10 @@ namespace StorageSearch {
         }
 
         private static void DoSearchBlock(Rect position) {
-            Rect clearSearchRect = new Rect(position.width - 33f, (29f - 14f) / 2f, 14f, 14f);
+            Rect clearSearchRect = new Rect(position.xMax - 33f, position.y + (29f - 14f) / 2f, 14f, 14f);
             bool shouldClearSearch = Widgets.ButtonImage(clearSearchRect, Widgets.CheckboxOffTex);
 
-            Rect searchRect = new Rect(165f, 0f, position.width - 160f - 20f, 29f);
+            Rect searchRect = new Rect(position.x + 165f, position.y, position.width - 160f - 20f, 29f);
             string watermark = (searchText != string.Empty || searchFocused) ? searchText : GeneratedDefs.Keys.StorageSearch_SearchWatermark.Translate();
 
             bool escPressed = Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Escape;

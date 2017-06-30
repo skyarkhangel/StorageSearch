@@ -29,6 +29,14 @@ namespace StorageSearch {
 			/// </summary>
 			public const string @StorageSearch_IncludeParentCategoryTip = "StorageSearch.IncludeParentCategoryTip";
 			/// <summary>
+			/// Get's the translation key for '<em>Enable crafting filter</em>'
+			/// </summary>
+			public const string @StorageSearch_ForCrafting = "StorageSearch.ForCrafting";
+			/// <summary>
+			/// Get's the translation key for '<em>Show the search box in crafting bill details.</em>'
+			/// </summary>
+			public const string @StorageSearch_ForCraftingTip = "StorageSearch.ForCraftingTip";
+			/// <summary>
 			/// Get's the translation key for '<em>Refill cells less than</em>'
 			/// </summary>
 			public const string @HaulingHysteresis_RefillCellsLabel = "HaulingHysteresis.RefillCellsLabel";

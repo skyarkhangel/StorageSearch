@@ -28,6 +28,7 @@ namespace StorageSearch
 
         [HarmonyPrefix]
         public static void Before_ITab_Storage_FillTab(ITab_Storage __instance) {
+
             ThingFilterUI_DoThingFilterConfigWindow.showSearchCount++;
 
             if (ReferenceEquals(__instance.GetType().Assembly, typeof(ITab_Storage).Assembly))
