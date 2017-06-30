@@ -42,9 +42,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DefGenerator.tt</DependentUpon>
     </Compile>
-    <Compile Include="Patches\ITab_Storage_Searchable.cs" />
-    <Compile Include="Patches\StorageSettings_ExposeData.cs" />
-    <Compile Include="Patches\StoreUtility_NoStorageBlockersIn.cs" />
+    <Compile Include="Patches\Bills\Dialog_BillConfig_DoWindowContents.cs" />
+    <Compile Include="Patches\Storage\ITab_Storage_FillTab.cs" />
+    <Compile Include="Patches\Storage\StorageSettings_ExposeData.cs" />
+    <Compile Include="Patches\Storage\StoreUtility_NoStorageBlockersIn.cs" />
     <Compile Include="Patches\ThingFilterUI_DoThingFilterConfigWindow.cs" />
     <Compile Include="StorageSearchMod.cs" />
     <Compile Include="StorageSearchMod.Settings.cs" />
@@ -89,6 +90,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Patches\Outfits\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
