@@ -17,7 +17,7 @@ namespace StorageSearch
         }
 
         public override string SettingsCategory() {
-            return GeneratedDefs.Keys.StorageSearch.Translate();
+            return GeneratedDefs.StorageSearchKeys.StorageSearch.Translate();
         }
 
         public override void DoSettingsWindowContents(Rect inRect) {

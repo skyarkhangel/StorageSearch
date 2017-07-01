@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+  <SearchFilter>Search Filter</SearchFilter>
+    
+  <!-- Settings -->
+  <SearchFilter.IncludeParentCategory>Show parent category</SearchFilter.IncludeParentCategory>
+  <SearchFilter.IncludeParentCategoryTip>Include an item's first parent category in the search filter.</SearchFilter.IncludeParentCategoryTip>
+
+  <SearchFilter.SearchWatermark>Search</SearchFilter.SearchWatermark>
+  
+</LanguageData>

@@ -11,10 +11,10 @@
 <#
 	// ---------------- DO NOT EDIT ABOVE THIS LINE ---------------------
 
-	SetNamespace("StorageSearch");
+	SetNamespace("SearchFilter");
 
 	// add defined language keys
-	ParseXML(@"..\..\..\Languages\English\Keyed\StorageSearchKeys.xml");
+	ParseXML(@"..\..\..\Languages\English\Keyed\SearchFilterKeys.xml");
 
 	// ---------------- DO NOT EDIT BELOW THIS LINE ---------------------
 #>

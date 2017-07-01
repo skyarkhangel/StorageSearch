@@ -1,5 +1,6 @@
 ﻿using Harmony;
 using RimWorld;
+using SearchFilter;
 using UnityEngine;
 using Verse;
 
@@ -13,7 +14,7 @@ namespace StorageSearch {
             if (!Settings.EnableCraftingFilter)
                 return;
 
-            ThingFilterUI_DoThingFilterConfigWindow.showSearchCount++;
+            ThingFilterUtil.QueueNextInvocationSearch(SearchCategories.Bill);
         }
     }
 }
