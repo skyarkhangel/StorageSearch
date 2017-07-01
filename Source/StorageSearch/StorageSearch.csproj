@@ -52,7 +52,6 @@
     <Compile Include="StorageSearchMod.Settings.cs" />
     <Compile Include="HaulingHysterisis\StorageSettings_Hysteresis.cs" />
     <Compile Include="HaulingHysterisis\StorageSettings_Mapping.cs" />
-    <None Include="Dialog_ManageOutfitsStorageSearch.cs" />
     <Compile Include="SpecialThingFilterWorker_Fresh.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Patches\Listing_TreeThingFilter_DoCategory.cs" />
@@ -92,9 +91,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Patches\Outfits\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
