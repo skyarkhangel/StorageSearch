@@ -7,6 +7,9 @@
   <StorageSearch.IncludeParentCategory>Show parent category</StorageSearch.IncludeParentCategory>
   <StorageSearch.IncludeParentCategoryTip>Include an item's first parent category in the storage filter.</StorageSearch.IncludeParentCategoryTip>
 
+  <StorageSearch.ForOutfits>Enable outfits filter</StorageSearch.ForOutfits>
+  <StorageSearch.ForOutfitsTip>Show the search box in outfit manager.</StorageSearch.ForOutfitsTip>
+  
   <!-- ThingFilter controls-->
   <HaulingHysteresis.RefillCellsLabel>Refill cells less than</HaulingHysteresis.RefillCellsLabel>
   <StorageSearch.SearchWatermark>Search</StorageSearch.SearchWatermark>

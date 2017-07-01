@@ -29,6 +29,14 @@ namespace StorageSearch {
 			/// </summary>
 			public const string @StorageSearch_IncludeParentCategoryTip = "StorageSearch.IncludeParentCategoryTip";
 			/// <summary>
+			/// Get's the translation key for '<em>Enable outfits filter</em>'
+			/// </summary>
+			public const string @StorageSearch_ForOutfits = "StorageSearch.ForOutfits";
+			/// <summary>
+			/// Get's the translation key for '<em>Show the search box in outfit manager.</em>'
+			/// </summary>
+			public const string @StorageSearch_ForOutfitsTip = "StorageSearch.ForOutfitsTip";
+			/// <summary>
 			/// Get's the translation key for '<em>Refill cells less than</em>'
 			/// </summary>
 			public const string @HaulingHysteresis_RefillCellsLabel = "HaulingHysteresis.RefillCellsLabel";
