@@ -28,6 +28,30 @@ namespace StorageSearch {
 			/// Get's the translation key for '<em>Include an item's first parent category in the storage filter.</em>'
 			/// </summary>
 			public const string @StorageSearch_IncludeParentCategoryTip = "StorageSearch.IncludeParentCategoryTip";
+			/// <summary>
+			/// Get's the translation key for '<em>Enable outfits filter</em>'
+			/// </summary>
+			public const string @StorageSearch_ForOutfits = "StorageSearch.ForOutfits";
+			/// <summary>
+			/// Get's the translation key for '<em>Show the search box in outfit manager.</em>'
+			/// </summary>
+			public const string @StorageSearch_ForOutfitsTip = "StorageSearch.ForOutfitsTip";
+			/// <summary>
+			/// Get's the translation key for '<em>Enable crafting filter</em>'
+			/// </summary>
+			public const string @StorageSearch_ForCrafting = "StorageSearch.ForCrafting";
+			/// <summary>
+			/// Get's the translation key for '<em>Show the search box in crafting bill details.</em>'
+			/// </summary>
+			public const string @StorageSearch_ForCraftingTip = "StorageSearch.ForCraftingTip";
+			/// <summary>
+			/// Get's the translation key for '<em>Refill cells less than</em>'
+			/// </summary>
+			public const string @HaulingHysteresis_RefillCellsLabel = "HaulingHysteresis.RefillCellsLabel";
+			/// <summary>
+			/// Get's the translation key for '<em>Search</em>'
+			/// </summary>
+			public const string @StorageSearch_SearchWatermark = "StorageSearch.SearchWatermark";
 		}
 	}
 }
