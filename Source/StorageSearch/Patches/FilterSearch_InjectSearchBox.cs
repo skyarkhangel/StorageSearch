@@ -19,8 +19,11 @@ namespace StorageSearch {
     {
 
         private const float SearchDefaultHeight = 29f;
-        private const float SearchClearTopFactor = 15f/58f;
         private const float SearchClearDefaultSize = 14f;
+
+        private const float buttonSpacing = 3f;
+        private const float buttonsInset = 1f;
+        private const float buttonSize = 24f;
 
         private const float OverheadControlsHeight = 35f;
 
@@ -33,18 +36,18 @@ namespace StorageSearch {
             showSearchCount = Math.Max(0, showSearchCount);
 
             if (showSearch) {
-                Rect rect2 = new Rect(rect.x + 1f, rect.y + 1f, 24f, 24f);
+                Rect rect2 = new Rect(rect.x + buttonsInset, rect.y + buttonsInset, buttonSize, buttonSize);
                 if (ExtraWidgets.ButtonImage(rect2, Widgets.CheckboxOffTex, true, new TipSignal { text = "ClearAll".Translate() })) {
                     filter.SetDisallowAll(forceHiddenDefs, forceHiddenFilters);
                 }
-                Rect rect3 = new Rect(rect.x + 2f + 24f, rect.y +1f, 24f, 24f);
+                Rect rect3 = new Rect(rect.x + buttonsInset + buttonSpacing + buttonSize, rect.y + buttonsInset, buttonSize, buttonSize);
                 if (ExtraWidgets.ButtonImage(rect3, Widgets.CheckboxOnTex, true, new TipSignal { text = "AllowAll".Translate() })) {
                     filter.SetAllowAll(parentFilter);
                 }
 
-                float shift = 3f + 2*24f;
+                float shift =  2*buttonSpacing + 2* buttonSize;
 
-                Rect rect4 = new Rect(rect.x + shift, rect.y+1f, rect.width - shift -1f, 24f);
+                Rect rect4 = new Rect(rect.x + buttonsInset + shift, rect.y+ buttonsInset, rect.width - shift - buttonsInset, buttonSize);
 
                 var options = searchOptions.Dequeue();
                 DoSearchBlock(rect4, options.Term, options.Watermark);
