@@ -35,21 +35,7 @@ namespace StorageSearch
 
                 bool modifiedExtendedCrafting = TryDetourExtendedCrafting(harmonyInstance);               
 
-                Log.Message($"StorageSearch injected {(modifiedExtendedCrafting ? "(ExtendedCrafting detected)" : String.Empty)} ...");
-
-                try
-                {
-                    Log.Message(SearchCategories.Storage.CategoryKey);
-
-                } catch (Exception e)
-                {
-                    StringBuilder sb = new StringBuilder(e.ToString());
-                    if (e.InnerException != null)
-                        sb.AppendLine(e.InnerException.ToString());
-
-                    Log.Error(sb.ToString());
-                }
-
+                Log.Message($"StorageSearch injected {(modifiedExtendedCrafting ? "(ExtendedCrafting detected)" : String.Empty)} ...");               
             }
 
             private static bool TryDetourExtendedCrafting(HarmonyInstance harmony) {
