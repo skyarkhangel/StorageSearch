@@ -3,25 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using Harmony;
 using RimWorld;
-using SearchFilter;
+using StorageSearch.HaulingHysterisis;
 using UnityEngine;
 using Verse;
 
 namespace StorageSearch {
 
     [HarmonyPatch(typeof(ThingFilterUI), nameof(ThingFilterUI.DoThingFilterConfigWindow))]
-    class ThingFilterUI_DoThingFilterConfigWindow
-    {
+    class HaulingHysteresis_InjectControls {
 
         private const float HysteresisHeight = 30f;
         private const float HysteresisBlockHeight = 35f;
 
-        public static volatile int showHysteresisCount;
+        internal static volatile int showHysteresisCount;
 
         private static Queue<StorageSettings> _settingsQueue = new Queue<StorageSettings>();
 
-        public static Queue<StorageSettings> SettingsQueue => _settingsQueue;
-
+        internal static Queue<StorageSettings> SettingsQueue => _settingsQueue;
 
         [HarmonyPrefix]
         public static void Before_DoThingFilterConfigWindow(ref object __state, ref Rect rect) {

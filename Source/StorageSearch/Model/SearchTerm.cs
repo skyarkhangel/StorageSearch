@@ -2,20 +2,23 @@
 using System.Linq;
 using Verse;
 
-namespace SearchFilter {
+namespace StorageSearch {
     public class SearchTerm
     {
-        private readonly string _category;
+        private readonly string _categoryKey;
 
         internal string Value = string.Empty;
 
         internal bool Focused = false;
         internal readonly string ControlName;
-        internal string Category => _category;
 
-        internal SearchTerm(string category) {
-            _category = category;
-            ControlName = $"SearchFilterInput_{category}";
+        public string CategoryKey {
+            get { return _categoryKey; }            
+        }
+
+        internal SearchTerm(string categoryKey) {
+            _categoryKey = categoryKey;
+            ControlName = $"SearchFilterInput_{categoryKey}";
         }
 
         public void Reset() {

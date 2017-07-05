@@ -8,10 +8,11 @@
     <ProjectGuid>{82C7DB11-40F4-4F7F-8DA8-72FD876BCBEF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SearchFilter</RootNamespace>
-    <AssemblyName>SearchFilter</AssemblyName>
+    <RootNamespace>ImprovedFilter</RootNamespace>
+    <AssemblyName>1ImprovedFilter</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,43 +49,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Languages\DefGenerator.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DefGenerator.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\SearchOptions.cs" />
-    <Compile Include="Model\SearchTerm.cs" />
-    <Compile Include="Model\StorageCategories.cs" />
-    <Compile Include="Model\StorageCategories.Predefined.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StorageCategories.Predefined.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Patches\Listing_TreeThingFilter_DoCategory.cs" />
-    <Compile Include="Patches\ThingFilterUI_DoThingFilterConfigWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchFilterMod.cs" />
-    <Compile Include="SearchFilterMod.Settings.cs" />
-    <Compile Include="ThingFilterUtil.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\..\Languages\English\Keyed\SearchFilterKeys.xml">
-      <Link>Languages\SearchFilterKeys.xml</Link>
-    </Content>
-    <Content Include="Languages\DefGenerator.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DefGenerator.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model\StorageCategories.Predefined.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>StorageCategories.Predefined.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Languages\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

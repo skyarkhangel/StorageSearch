@@ -3,7 +3,6 @@ using System.Reflection;
 using System.Reflection.Emit;
 using Harmony;
 using RimWorld;
-using SearchFilter;
 using StorageSearch.Util;
 using UnityEngine;
 

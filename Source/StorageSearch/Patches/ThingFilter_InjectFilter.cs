@@ -4,14 +4,14 @@ using System.Diagnostics.CodeAnalysis;
 using Harmony;
 using Verse;
 
-namespace SearchFilter
+namespace StorageSearch
 {
     /// <summary>
     /// Allow on-demand filtering of <see cref="TreeNode_ThingCategory" /> in <see cref="Listing_TreeThingFilter.DoCategoryChildren"/> (as of A17 
     /// <see cref="ThingFilterUI.DoThingFilterConfigWindow"/> is currently the only invoker of that method).
     /// </summary>
     [HarmonyPatch(typeof(Listing_TreeThingFilter), nameof(Listing_TreeThingFilter.DoCategoryChildren))]
-    static class Listing_TreeThingFilter_DoCategoryChildren {
+    static class ThingFilter_InjectFilter {
 		private static readonly Queue<Func<TreeNode_ThingCategory, TreeNode_ThingCategory>> projections = new Queue<Func<TreeNode_ThingCategory, TreeNode_ThingCategory>>();
 
 	    internal static Queue<Func<TreeNode_ThingCategory, TreeNode_ThingCategory>> Projections => projections;

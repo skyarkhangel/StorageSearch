@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Reflection.Emit;
 using Harmony;
 using RimWorld;
-using SearchFilter;
 using StorageSearch.Util;
 using UnityEngine;
 using Verse;
@@ -30,10 +29,10 @@ namespace StorageSearch
             if (ReferenceEquals(__instance.GetType().Assembly, typeof(ITab_Storage).Assembly))
             {
                 // only show hysteresis option for non derived (non-custom) storage(s)
-                ThingFilterUI_DoThingFilterConfigWindow.showHysteresisCount++;
+                HaulingHysteresis_InjectControls.showHysteresisCount++;
 
                 IStoreSettingsParent selStoreSettingsParent =  GetSelStoreSettingsParent(__instance);
-                ThingFilterUI_DoThingFilterConfigWindow.SettingsQueue.Enqueue(selStoreSettingsParent.GetStoreSettings());
+                HaulingHysteresis_InjectControls.SettingsQueue.Enqueue(selStoreSettingsParent.GetStoreSettings());
             }
         }
     }

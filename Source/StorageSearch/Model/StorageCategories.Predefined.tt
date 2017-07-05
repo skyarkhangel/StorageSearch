@@ -12,13 +12,17 @@
 	};
 
 #>using System.Collections.Generic;
+using Verse;
 
-namespace SearchFilter {
+namespace StorageSearch {
+
     public static partial class SearchCategories
     {
 <#	foreach (var cat in predefined) { #>
 		public const string CategoryID_<#= cat #> = "<#= cat #>";
-        public static SearchTerm <#= cat #> => TermFor(CategoryID_<#= cat #>);
+        public static SearchTerm <#= cat #> {
+			get { return TermFor(CategoryID_<#= cat #>); }
+		}
 <#	}  #>
 		
 		static SearchCategories() {

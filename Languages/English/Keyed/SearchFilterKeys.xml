@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
-  <SearchFilter>Search Filter</SearchFilter>
+  <ImprovedFilter>Filter search</ImprovedFilter>
     
   <!-- Settings -->
-  <SearchFilter.IncludeParentCategory>Show parent category</SearchFilter.IncludeParentCategory>
-  <SearchFilter.IncludeParentCategoryTip>Include an item's first parent category in the search filter.</SearchFilter.IncludeParentCategoryTip>
+  <ImprovedFilter.IncludeParentCategory>Show parent category</ImprovedFilter.IncludeParentCategory>
+  <ImprovedFilter.IncludeParentCategoryTip>Include an item's first parent categoryKey in the search filter.</ImprovedFilter.IncludeParentCategoryTip>
 
-  <SearchFilter.SearchWatermark>Search</SearchFilter.SearchWatermark>
+  <ImprovedFilter.SearchWatermark>Search</ImprovedFilter.SearchWatermark>
   
 </LanguageData>

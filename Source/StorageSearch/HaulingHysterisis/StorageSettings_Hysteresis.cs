@@ -1,6 +1,6 @@
 ﻿using Verse;
 
-namespace StorageSearch
+namespace StorageSearch.HaulingHysterisis
 {
     public class StorageSettings_Hysteresis : IExposable
     {

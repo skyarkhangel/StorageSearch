@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
-namespace SearchFilter {
+namespace StorageSearch {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Libarary class")]
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Libarary class")]
     public static partial class SearchCategories
@@ -15,6 +15,7 @@ namespace SearchFilter {
                 CachedTerms.Add(category, term = new SearchTerm(category));
 
             return term;
+
         }
     }
 }

@@ -1,14 +1,22 @@
 ﻿using System.Collections.Generic;
+using Verse;
 
-namespace SearchFilter {
+namespace StorageSearch {
+
     public static partial class SearchCategories
     {
 		public const string CategoryID_Storage = "Storage";
-        public static SearchTerm Storage => TermFor(CategoryID_Storage);
+        public static SearchTerm Storage {
+			get { return TermFor(CategoryID_Storage); }
+		}
 		public const string CategoryID_Bill = "Bill";
-        public static SearchTerm Bill => TermFor(CategoryID_Bill);
+        public static SearchTerm Bill {
+			get { return TermFor(CategoryID_Bill); }
+		}
 		public const string CategoryID_Outfit = "Outfit";
-        public static SearchTerm Outfit => TermFor(CategoryID_Outfit);
+        public static SearchTerm Outfit {
+			get { return TermFor(CategoryID_Outfit); }
+		}
 		
 		static SearchCategories() {
 			CachedTerms = new Dictionary<string, SearchTerm>{

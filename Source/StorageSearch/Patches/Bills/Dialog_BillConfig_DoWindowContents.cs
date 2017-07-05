@@ -1,6 +1,6 @@
 ﻿using Harmony;
 using RimWorld;
-using SearchFilter;
+
 using UnityEngine;
 using Verse;
 
