@@ -26,10 +26,13 @@ namespace StorageSearch {
             };
             list.Begin(rect);
 
-            list.CheckboxLabeled(GeneratedDefs.Keys.StorageSearch_IncludeParentCategory.Translate(), ref IncludeParentCategory, GeneratedDefs.Keys.StorageSearch_IncludeParentCategoryTip.Translate());
+            list.CheckboxLabeled(
+                GeneratedDefs.SearchFilterKeys.ImprovedFilter_IncludeParentCategory.Translate(),
+                ref IncludeParentCategory,
+                GeneratedDefs.SearchFilterKeys.ImprovedFilter_IncludeParentCategoryTip.Translate());
 
-            list.CheckboxLabeled(GeneratedDefs.Keys.StorageSearch_ForOutfits.Translate(), ref EnableOutfitFilter, GeneratedDefs.Keys.StorageSearch_ForOutfitsTip.Translate());
-            list.CheckboxLabeled(GeneratedDefs.Keys.StorageSearch_ForCrafting.Translate(), ref EnableCraftingFilter, GeneratedDefs.Keys.StorageSearch_ForCraftingTip.Translate());
+            list.CheckboxLabeled(GeneratedDefs.StorageSearchKeys.StorageSearch_ForOutfits.Translate(), ref EnableOutfitFilter, GeneratedDefs.StorageSearchKeys.StorageSearch_ForOutfitsTip.Translate());
+            list.CheckboxLabeled(GeneratedDefs.StorageSearchKeys.StorageSearch_ForCrafting.Translate(), ref EnableCraftingFilter, GeneratedDefs.StorageSearchKeys.StorageSearch_ForCraftingTip.Translate());
 
             list.End();
         }

@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Harmony;
 using RimWorld;
+using StorageSearch.HaulingHysterisis;
 using Verse;
 
 namespace StorageSearch

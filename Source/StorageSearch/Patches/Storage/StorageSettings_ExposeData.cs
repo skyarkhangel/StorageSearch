@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Harmony;
 using RimWorld;
+using StorageSearch.HaulingHysterisis;
 using Verse;
 
 namespace StorageSearch

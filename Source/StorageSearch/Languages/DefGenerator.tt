@@ -14,7 +14,8 @@
 	SetNamespace("StorageSearch");
 
 	// add defined language keys
-	ParseXML(@"..\..\Languages\English\Keyed\Keys.xml");
+	ParseXML(@"..\..\..\Languages\English\Keyed\StorageSearchKeys.xml");
+    ParseXML(@"..\..\..\Languages\English\Keyed\SearchFilterKeys.xml");
 
 	// ---------------- DO NOT EDIT BELOW THIS LINE ---------------------
 #>

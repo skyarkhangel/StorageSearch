@@ -17,7 +17,7 @@ namespace StorageSearch
         }
 
         public override string SettingsCategory() {
-            return GeneratedDefs.Keys.StorageSearch.Translate();
+            return GeneratedDefs.StorageSearchKeys.StorageSearch.Translate();
         }
 
         public override void DoSettingsWindowContents(Rect inRect) {
@@ -35,7 +35,7 @@ namespace StorageSearch
 
                 bool modifiedExtendedCrafting = TryDetourExtendedCrafting(harmonyInstance);               
 
-                Log.Message($"StorageSearch injected {(modifiedExtendedCrafting ? "(ExtendedCrafting detected)" : String.Empty)} ...");         
+                Log.Message($"StorageSearch injected {(modifiedExtendedCrafting ? "(ExtendedCrafting detected)" : String.Empty)} ...");               
             }
 
             private static bool TryDetourExtendedCrafting(HarmonyInstance harmony) {
