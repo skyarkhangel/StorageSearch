@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using Verse;
 
-namespace StorageSearch {
+namespace ImprovedFilter {
     public static class ThingFilterUtil {
         /// <summary>
         /// Queue up a projection on the displayed <see cref="TreeNode_ThingCategory"/> for the next invocation of 

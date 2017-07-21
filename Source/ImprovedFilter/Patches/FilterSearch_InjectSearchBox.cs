@@ -10,7 +10,7 @@ using Harmony;
 using UnityEngine;
 using Verse;
 
-namespace StorageSearch {
+namespace ImprovedFilter {
 
     [HarmonyPatch(typeof(ThingFilterUI), nameof(ThingFilterUI.DoThingFilterConfigWindow))]
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Harmony patch class")]

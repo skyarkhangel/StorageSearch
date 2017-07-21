@@ -1,4 +1,4 @@
-﻿namespace StorageSearch {
+﻿namespace ImprovedFilter {
     internal class SearchOptions
     {
         public SearchTerm Term;

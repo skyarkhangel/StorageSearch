@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
-namespace StorageSearch {
+namespace ImprovedFilter {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Libarary class")]
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Libarary class")]
     public static partial class SearchCategories

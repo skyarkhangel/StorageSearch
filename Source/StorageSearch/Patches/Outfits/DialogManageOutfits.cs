@@ -2,8 +2,9 @@
 using System.Reflection;
 using System.Reflection.Emit;
 using Harmony;
+using ImprovedFilter;
+using ImprovedFilter.Util;
 using RimWorld;
-using StorageSearch.Util;
 using UnityEngine;
 
 namespace StorageSearch {
