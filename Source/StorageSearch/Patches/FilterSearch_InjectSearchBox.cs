@@ -21,8 +21,8 @@ namespace StorageSearch {
         private const float SearchDefaultHeight = 29f;
         private const float SearchClearDefaultSize = 14f;
 
-        private const float buttonSpacing = 3f;
-        private const float buttonsInset = 1f;
+        private const float buttonSpacing = 2f;
+        private const float buttonsInset = 2f;
         private const float buttonSize = 24f;
 
         private const float OverheadControlsHeight = 35f;
@@ -276,7 +276,17 @@ namespace StorageSearch {
             );
         }
 
-        private static void DoSearchBlock(Rect area, SearchTerm term, string weatermark = null) {
+        public readonly static GUIStyle DefaultSearchBoxStyle;
+
+        static FilterSearch_InjectSearchBox() {
+            Text.Font = GameFont.Small;
+            DefaultSearchBoxStyle = new GUIStyle(Text.CurTextFieldStyle)
+                                    { 
+                                        //border = new RectOffset()
+                                    };
+        }
+
+        private static void DoSearchBlock(Rect area, SearchTerm term, string weatermark = null, GUIStyle style=null) {
             float scale = area.height/ SearchDefaultHeight;
             float clearSize = SearchClearDefaultSize*Math.Min(1, scale);
 
@@ -294,7 +304,7 @@ namespace StorageSearch {
             }
 
             GUI.SetNextControlName(term.ControlName);
-            string searchInput = Widgets.TextField(searchRect, watermark);
+            string searchInput = GUI.TextField(searchRect, watermark, style ?? DefaultSearchBoxStyle);
             GUI.color = Color.white;
 
             if (term.Focused) {
