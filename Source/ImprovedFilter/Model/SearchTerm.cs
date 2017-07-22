@@ -2,7 +2,7 @@
 using System.Linq;
 using Verse;
 
-namespace StorageSearch {
+namespace ImprovedFilter {
     public class SearchTerm
     {
         private readonly string _categoryKey;

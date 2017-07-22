@@ -2,7 +2,7 @@
 using Verse;
 using Verse.Sound;
 
-namespace StorageSearch {
+namespace ImprovedFilter {
 
     [StaticConstructorOnStartup]
     public static class ExtraWidgets {
@@ -10,7 +10,6 @@ namespace StorageSearch {
         public  static Texture2D ButtonBGAtlas;
         public static Texture2D ButtonBGAtlasMouseover;
         public static Texture2D ButtonBGAtlasClick;
-
 
         static ExtraWidgets() {
             ButtonBGAtlas = ContentFinder<Texture2D>.Get("UI/Widgets/ButtonBG", true);

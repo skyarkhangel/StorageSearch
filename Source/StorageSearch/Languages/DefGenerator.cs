@@ -41,23 +41,5 @@ namespace StorageSearch {
 			/// </summary>
 			public const string @HaulingHysteresis_RefillCellsLabel = "HaulingHysteresis.RefillCellsLabel";
 		}
-		public static class @SearchFilterKeys {
-			/// <summary>
-			/// Get's the translation key for '<em>Filter search</em>'
-			/// </summary>
-			public const string @ImprovedFilter = "ImprovedFilter";
-			/// <summary>
-			/// Get's the translation key for '<em>Show parent category</em>'
-			/// </summary>
-			public const string @ImprovedFilter_IncludeParentCategory = "ImprovedFilter.IncludeParentCategory";
-			/// <summary>
-			/// Get's the translation key for '<em>Include an item's first parent categoryKey in the search filter.</em>'
-			/// </summary>
-			public const string @ImprovedFilter_IncludeParentCategoryTip = "ImprovedFilter.IncludeParentCategoryTip";
-			/// <summary>
-			/// Get's the translation key for '<em>Search</em>'
-			/// </summary>
-			public const string @ImprovedFilter_SearchWatermark = "ImprovedFilter.SearchWatermark";
-		}
 	}
 }

@@ -4,8 +4,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Reflection.Emit;
 using Harmony;
+using ImprovedFilter;
+using ImprovedFilter.Util;
 using RimWorld;
-using StorageSearch.Util;
 using UnityEngine;
 using Verse;
 
@@ -23,8 +24,8 @@ namespace StorageSearch
 
 
         [HarmonyPrefix]
-        public static void Before_ITab_Storage_FillTab(ITab_Storage __instance) {           
-            ThingFilterUtil.QueueNextInvocationSearch(SearchCategories.Storage);           
+        public static void Before_ITab_Storage_FillTab(ITab_Storage __instance) {
+            ThingFilterUtil.QueueNextInvocationSearch(SearchCategories.Storage);
 
             if (ReferenceEquals(__instance.GetType().Assembly, typeof(ITab_Storage).Assembly))
             {

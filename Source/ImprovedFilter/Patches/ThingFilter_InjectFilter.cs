@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using Harmony;
 using Verse;
 
-namespace StorageSearch
+namespace ImprovedFilter
 {
     /// <summary>
     /// Allow on-demand filtering of <see cref="TreeNode_ThingCategory" /> in <see cref="Listing_TreeThingFilter.DoCategoryChildren"/> (as of A17 

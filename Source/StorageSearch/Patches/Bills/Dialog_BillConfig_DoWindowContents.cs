@@ -1,4 +1,5 @@
 ﻿using Harmony;
+using ImprovedFilter;
 using RimWorld;
 
 using UnityEngine;
