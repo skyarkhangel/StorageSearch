@@ -10,7 +10,8 @@ using Harmony;
 using UnityEngine;
 using Verse;
 
-namespace ImprovedFilter {
+namespace ImprovedFilter
+{
 
     [HarmonyPatch(typeof(ThingFilterUI), nameof(ThingFilterUI.DoThingFilterConfigWindow))]
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Harmony patch class")]
@@ -18,11 +19,11 @@ namespace ImprovedFilter {
     class FilterSearch_InjectSearchBox
     {
 
-        private const float SearchDefaultHeight = 29f;
-        private const float SearchClearDefaultSize = 14f;
+        private const float SearchDefaultHeight = 34f;
+        private const float SearchClearDefaultSize = 12f;
 
-        private const float buttonSpacing = 2f;
-        private const float buttonsInset = 2f;
+        private const float buttonSpacing = 12f;
+        private const float buttonsInset = 10f;
         private const float buttonSize = 24f;
 
         private const float OverheadControlsHeight = 35f;
@@ -31,47 +32,55 @@ namespace ImprovedFilter {
 
         internal static Queue<SearchOptions> searchOptions = new Queue<SearchOptions>();
 
-        public static void DoThingFilterConfigWindowHeader(ref Rect rect, ref Vector2 scrollPosition, ThingFilter filter, ThingFilter parentFilter = null, int openMask = 1, IEnumerable<ThingDef> forceHiddenDefs = null, IEnumerable<SpecialThingFilterDef> forceHiddenFilters = null, List<ThingDef> suppressSmallVolumeTags = null) {
+        public static void DoThingFilterConfigWindowHeader(ref Rect rect, ref Vector2 scrollPosition, ThingFilter filter, ThingFilter parentFilter = null, int openMask = 1, IEnumerable<ThingDef> forceHiddenDefs = null, IEnumerable<SpecialThingFilterDef> forceHiddenFilters = null, List<ThingDef> suppressSmallVolumeTags = null)
+        {
             bool showSearch = showSearchCount-- > 0 && searchOptions.Count != 0;
             showSearchCount = Math.Max(0, showSearchCount);
 
-            if (showSearch) {
+            if (showSearch)
+            {
                 Rect rect2 = new Rect(rect.x + buttonsInset, rect.y + buttonsInset, buttonSize, buttonSize);
-                if (ExtraWidgets.ButtonImage(rect2, Widgets.CheckboxOffTex, true, new TipSignal { text = "ClearAll".Translate() })) {
+                if (ExtraWidgets.ButtonImage(rect2.ContractedBy(3f), Widgets.CheckboxOffTex, true, new TipSignal { text = "ClearAll".Translate() }))
+                {
                     filter.SetDisallowAll(forceHiddenDefs, forceHiddenFilters);
                 }
-                Rect rect3 = new Rect(rect.x + buttonsInset + buttonSpacing + buttonSize, rect.y + buttonsInset, buttonSize, buttonSize);
-                if (ExtraWidgets.ButtonImage(rect3, Widgets.CheckboxOnTex, true, new TipSignal { text = "AllowAll".Translate() })) {
+                Rect rect3 = new Rect(rect2.xMax + buttonSpacing, rect2.y, buttonSize, buttonSize);
+                if (ExtraWidgets.ButtonImage(rect3.ContractedBy(3f), Widgets.CheckboxOnTex, true, new TipSignal { text = "AllowAll".Translate() }))
+                {
                     filter.SetAllowAll(parentFilter);
                 }
 
-                float shift =  2*buttonSpacing + 2* buttonSize;
 
-                Rect rect4 = new Rect(rect.x + buttonsInset + shift, rect.y+ buttonsInset, rect.width - shift - buttonsInset, buttonSize);
+                Rect rect4 = new Rect(rect3.xMax + buttonSpacing, rect3.y, rect.width - buttonSpacing - rect3.xMax - buttonsInset, buttonSize);
 
                 var options = searchOptions.Dequeue();
                 DoSearchBlock(rect4, options.Term, options.Watermark);
                 ThingFilter_InjectFilter.Projections.Enqueue(options.Term.FilterNodes);
 
-                rect.yMin = rect2.yMax;
-            } else {
+                rect.yMin = rect2.yMax + buttonSpacing;
+            }
+            else
+            {
                 Text.Font = GameFont.Tiny;
-                float num = rect.width - 2f;
-                Rect rect2 = new Rect(rect.x + 1f, rect.y + 1f, num / 2f, 24f);
-                if (Widgets.ButtonText(rect2, "ClearAll".Translate(), true, false, true)) {
+                float num = rect.width - 2 * buttonsInset - buttonSpacing;
+                Rect rect2 = new Rect(rect.x + buttonsInset, rect.y + 1f, num / 2f, buttonSize);
+                if (Widgets.ButtonText(rect2, "ClearAll".Translate(), true, false, true))
+                {
                     filter.SetDisallowAll(forceHiddenDefs, forceHiddenFilters);
                 }
-                Rect rect3 = new Rect(rect2.xMax + 1f, rect2.y, rect.xMax - 1f - (rect2.xMax + 1f), 24f);
-                if (Widgets.ButtonText(rect3, "AllowAll".Translate(), true, false, true)) {
+                Rect rect3 = new Rect(rect2.xMax + buttonSpacing, rect2.y, rect2.width, buttonSize);
+                if (Widgets.ButtonText(rect3, "AllowAll".Translate(), true, false, true))
+                {
                     filter.SetAllowAll(parentFilter);
                 }
                 Text.Font = GameFont.Small;
-                rect.yMin = rect2.yMax+1;
+                rect.yMin = rect2.yMax + 1;
             }
-        }    
+        }
 
         [HarmonyTranspiler]
-        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instr) {
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instr)
+        {
             #region Transpiler Explanation
 
             #region C#
@@ -239,8 +248,8 @@ namespace ImprovedFilter {
                             new CodeInstruction(OpCodes.Ldarg_S, 6),
                             new CodeInstruction(OpCodes.Ldarg_S, 7),
                             new CodeInstruction(OpCodes.Call,
-                                                typeof(FilterSearch_InjectSearchBox)
-                                                    .GetMethod(nameof(DoThingFilterConfigWindowHeader), BindingFlags.Public | BindingFlags.Static))
+                                typeof(FilterSearch_InjectSearchBox)
+                                    .GetMethod(nameof(DoThingFilterConfigWindowHeader), BindingFlags.Public | BindingFlags.Static))
                         };
             instructions.InsertRange(3, patch);
             // we skip 0xd1 (=0xd8-0x7) *bytes*, and inject 0x12 *bytes* - so pad with appropriate number of (1 byte) no-ops
@@ -253,42 +262,45 @@ namespace ImprovedFilter {
         }
 
         [Conditional("TRACE")]
-        private static void DumpIL(IEnumerable<CodeInstruction> instr, string header = null) {
+        private static void DumpIL(IEnumerable<CodeInstruction> instr, string header = null)
+        {
             Func<Label, string> lblToString = l => $"Label_{l.GetHashCode()}";
 
             Func<IEnumerable<Label>, string> concatLabels = labels =>
-                                                            {
-                                                                var str = labels.Aggregate(
-                                                                    new StringBuilder(),
-                                                                    (sb, l) => (sb.Length != 0 ? sb.Append(", ") : sb).Append(lblToString(l)),
-                                                                    sb => sb.ToString()
+            {
+                var str = labels.Aggregate(
+                    new StringBuilder(),
+                    (sb, l) => (sb.Length != 0 ? sb.Append(", ") : sb).Append(lblToString(l)),
+                    sb => sb.ToString()
 
-                                                                );
+                );
 
-                                                                return !String.IsNullOrEmpty(str) ? $"[{str}]:\t" : null;
-                                                            };
+                return !String.IsNullOrEmpty(str) ? $"[{str}]:\t" : null;
+            };
 
             Log.Message(instr.Aggregate(
-                            new StringBuilder(header != null ? $"{header}\r\n" : null),
-                            (sb, ci) => sb.AppendLine($"{concatLabels(ci.labels)}{ci.opcode}\t{(ci.operand is Label ? lblToString((Label) ci.operand) : ci.operand)}"),
-                            sb => sb.ToString()
-                        )
+                    new StringBuilder(header != null ? $"{header}\r\n" : null),
+                    (sb, ci) => sb.AppendLine($"{concatLabels(ci.labels)}{ci.opcode}\t{(ci.operand is Label ? lblToString((Label)ci.operand) : ci.operand)}"),
+                    sb => sb.ToString()
+                )
             );
         }
 
         public readonly static GUIStyle DefaultSearchBoxStyle;
 
-        static FilterSearch_InjectSearchBox() {
+        static FilterSearch_InjectSearchBox()
+        {
             Text.Font = GameFont.Small;
             DefaultSearchBoxStyle = new GUIStyle(Text.CurTextFieldStyle)
-                                    { 
-                                        //border = new RectOffset()
-                                    };
+            {
+                //border = new RectOffset()
+            };
         }
 
-        private static void DoSearchBlock(Rect area, SearchTerm term, string weatermark = null, GUIStyle style=null) {
-            float scale = area.height/ SearchDefaultHeight;
-            float clearSize = SearchClearDefaultSize*Math.Min(1, scale);
+        private static void DoSearchBlock(Rect area, SearchTerm term, string weatermark = null, GUIStyle style = null)
+        {
+            float scale = area.height / SearchDefaultHeight;
+            float clearSize = SearchClearDefaultSize * Math.Min(1, scale);
 
             Rect clearSearchRect = new Rect(area.xMax - 4f - clearSize, area.y + (area.height - clearSize) / 2, clearSize, clearSize);
             bool shouldClearSearch = Widgets.ButtonImage(clearSearchRect, Widgets.CheckboxOffTex);
@@ -299,7 +311,8 @@ namespace ImprovedFilter {
             bool escPressed = Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Escape;
             bool clickedOutside = !Mouse.IsOver(searchRect) && Event.current.type == EventType.MouseDown;
 
-            if (!term.Focused) {
+            if (!term.Focused)
+            {
                 GUI.color = new Color(1f, 1f, 1f, 0.6f);
             }
 
@@ -307,18 +320,23 @@ namespace ImprovedFilter {
             string searchInput = GUI.TextField(searchRect, watermark, style ?? DefaultSearchBoxStyle);
             GUI.color = Color.white;
 
-            if (term.Focused) {
+            if (term.Focused)
+            {
                 term.Value = searchInput;
             }
 
-            if ((GUI.GetNameOfFocusedControl() == term.ControlName || term.Focused) && (escPressed || clickedOutside)) {
+            if ((GUI.GetNameOfFocusedControl() == term.ControlName || term.Focused) && (escPressed || clickedOutside))
+            {
                 GUIUtility.keyboardControl = 0;
                 term.Focused = false;
-            } else if (GUI.GetNameOfFocusedControl() == term.ControlName && !term.Focused) {
+            }
+            else if (GUI.GetNameOfFocusedControl() == term.ControlName && !term.Focused)
+            {
                 term.Focused = true;
             }
 
-            if (shouldClearSearch) {
+            if (shouldClearSearch)
+            {
                 term.Value = string.Empty;
             }
         }

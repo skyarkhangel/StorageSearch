@@ -25,16 +25,22 @@ namespace ImprovedFilter {
             Value = String.Empty;
         }
 
-        internal TreeNode_ThingCategory FilterNodes(TreeNode_ThingCategory node) {
-            if (!string.IsNullOrEmpty(Value)) {
+        internal TreeNode_ThingCategory FilterNodes(TreeNode_ThingCategory node)
+        {
+            if (!string.IsNullOrEmpty(Value))
+            {
                 TreeNode_ThingCategory rootNode = new TreeNode_ThingCategory(new ThingCategoryDef());
 
-                foreach (ThingDef currentThing in node.catDef.DescendantThingDefs.Where(td => td.label.IndexOf(Value, StringComparison.CurrentCultureIgnoreCase) != -1)) {
+                foreach (ThingDef currentThing in node.catDef.DescendantThingDefs.Where(
+                    td => td.label.IndexOf(Value, StringComparison.CurrentCultureIgnoreCase) != -1))
+                {
 
                     rootNode.catDef.childThingDefs.Add(currentThing);
 
-                    if (Settings.IncludeParentCategory) {
-                        if (!rootNode.catDef.childCategories.Contains(currentThing.FirstThingCategory)) {
+                    if (Settings.IncludeParentCategory)
+                    {
+                        if (!rootNode.catDef.childCategories.Contains(currentThing.FirstThingCategory))
+                        {
                             rootNode.catDef.childCategories.Add(currentThing.FirstThingCategory);
                         }
                     }

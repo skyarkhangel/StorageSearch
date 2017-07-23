@@ -5,7 +5,7 @@
     
   <!-- Settings -->
   <ImprovedFilter.IncludeParentCategory>Show parent category</ImprovedFilter.IncludeParentCategory>
-  <ImprovedFilter.IncludeParentCategoryTip>Include an item's first parent categoryKey in the search filter.</ImprovedFilter.IncludeParentCategoryTip>
+  <ImprovedFilter.IncludeParentCategoryTip>Include an item's first parent category in the search filter.</ImprovedFilter.IncludeParentCategoryTip>
 
   <ImprovedFilter.SearchWatermark>Search</ImprovedFilter.SearchWatermark>
   
