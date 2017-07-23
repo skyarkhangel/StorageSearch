@@ -21,6 +21,10 @@ namespace ImprovedFilter {
 			/// </summary>
 			public const string @ImprovedFilter = "ImprovedFilter";
 			/// <summary>
+			/// Get's the translation key for '<em>Filter search (v{0})</em>'
+			/// </summary>
+			public const string @ImprovedFilter_Debug = "ImprovedFilter.Debug";
+			/// <summary>
 			/// Get's the translation key for '<em>Show parent category</em>'
 			/// </summary>
 			public const string @ImprovedFilter_IncludeParentCategory = "ImprovedFilter.IncludeParentCategory";
