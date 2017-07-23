@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventArgs.cs" />
     <Compile Include="Languages\DefGenerator.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -68,8 +69,8 @@
     <Compile Include="Patches\FilterSearch_InjectSearchBox.cs" />
     <Compile Include="Patches\ThingFilter_InjectFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ImprovedFilterMod.cs" />
-    <Compile Include="ImprovedFilterMod.Settings.cs" />
+    <Compile Include="FilterSearchBaseMod.cs" />
+    <Compile Include="FilterSearchBaseMod.Settings.cs" />
     <Compile Include="ThingFilterUtil.cs" />
     <Compile Include="Util\Access.cs" />
     <Compile Include="Widgets.cs" />

@@ -2,7 +2,8 @@
 <LanguageData>
 
   <ImprovedFilter>Filter search</ImprovedFilter>
-    
+  <ImprovedFilter.Debug>Filter search (v{0})</ImprovedFilter.Debug>
+
   <!-- Settings -->
   <ImprovedFilter.IncludeParentCategory>Show parent category</ImprovedFilter.IncludeParentCategory>
   <ImprovedFilter.IncludeParentCategoryTip>Include an item's first parent category in the search filter.</ImprovedFilter.IncludeParentCategoryTip>

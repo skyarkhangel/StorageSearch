@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
-  <StorageSearch>Storage Search</StorageSearch>
+  <StorageSearch>Filter search</StorageSearch>
     
   <!-- Settings -->
   <StorageSearch.ForOutfits>Enable outfits filter</StorageSearch.ForOutfits>
