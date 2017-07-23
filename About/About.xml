@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-  <name>Storage Search A17</name>
+  <name>Searchable Filters A17</name>
   <author>DoctorVanGogh, Killface, meonester</author>
   <targetVersion>0.17.1557</targetVersion>
   <description>
@@ -8,7 +8,7 @@
     
     + Storage tab
     + Bill tab
-    + Outfit tat
+    + Outfit tab
     
     Original A12 version by meonester. Initial update for A17 by Killface.
     Mod menu, rewrites for Harmony and massive improvements by
