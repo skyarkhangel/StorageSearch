@@ -21,7 +21,7 @@ namespace RSA.Core {
     {
 
         private const float SearchDefaultHeight = 29f;
-        private const float SearchClearDefaultSize = 14f;
+        private const float SearchClearDefaultSize = 12f;
 
         private const float buttonSpacing = 2f;
         private const float buttonsInset = 2f;
@@ -131,10 +131,11 @@ sometext";
                 Text.Font = GameFont.Small;
                 rect.yMin = rect2.yMax+1;
             }
-        }    
+        }
 
         [HarmonyTranspiler]
-        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instr) {
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instr)
+        {
             #region Transpiler Explanation
 
             #region C#
@@ -302,8 +303,8 @@ sometext";
                             new CodeInstruction(OpCodes.Ldarg_S, 6),
                             new CodeInstruction(OpCodes.Ldarg_S, 7),
                             new CodeInstruction(OpCodes.Call,
-                                                typeof(FilterSearch_InjectSearchBox)
-                                                    .GetMethod(nameof(DoThingFilterConfigWindowHeader), BindingFlags.Public | BindingFlags.Static))
+                                typeof(FilterSearch_InjectSearchBox)
+                                    .GetMethod(nameof(DoThingFilterConfigWindowHeader), BindingFlags.Public | BindingFlags.Static))
                         };
             instructions.InsertRange(3, patch);
             // we skip 0xd1 (=0xd8-0x7) *bytes*, and inject 0x12 *bytes* - so pad with appropriate number of (1 byte) no-ops
@@ -316,42 +317,45 @@ sometext";
         }
 
         [Conditional("TRACE")]
-        private static void DumpIL(IEnumerable<CodeInstruction> instr, string header = null) {
+        private static void DumpIL(IEnumerable<CodeInstruction> instr, string header = null)
+        {
             Func<Label, string> lblToString = l => $"Label_{l.GetHashCode()}";
 
             Func<IEnumerable<Label>, string> concatLabels = labels =>
-                                                            {
-                                                                var str = labels.Aggregate(
-                                                                    new StringBuilder(),
-                                                                    (sb, l) => (sb.Length != 0 ? sb.Append(", ") : sb).Append(lblToString(l)),
-                                                                    sb => sb.ToString()
+            {
+                var str = labels.Aggregate(
+                    new StringBuilder(),
+                    (sb, l) => (sb.Length != 0 ? sb.Append(", ") : sb).Append(lblToString(l)),
+                    sb => sb.ToString()
 
-                                                                );
+                );
 
-                                                                return !String.IsNullOrEmpty(str) ? $"[{str}]:\t" : null;
-                                                            };
+                return !String.IsNullOrEmpty(str) ? $"[{str}]:\t" : null;
+            };
 
             Log.Message(instr.Aggregate(
-                            new StringBuilder(header != null ? $"{header}\r\n" : null),
-                            (sb, ci) => sb.AppendLine($"{concatLabels(ci.labels)}{ci.opcode}\t{(ci.operand is Label ? lblToString((Label) ci.operand) : ci.operand)}"),
-                            sb => sb.ToString()
-                        )
+                    new StringBuilder(header != null ? $"{header}\r\n" : null),
+                    (sb, ci) => sb.AppendLine($"{concatLabels(ci.labels)}{ci.opcode}\t{(ci.operand is Label ? lblToString((Label)ci.operand) : ci.operand)}"),
+                    sb => sb.ToString()
+                )
             );
         }
 
         public readonly static GUIStyle DefaultSearchBoxStyle;
 
-        static FilterSearch_InjectSearchBox() {
+        static FilterSearch_InjectSearchBox()
+        {
             Text.Font = GameFont.Small;
             DefaultSearchBoxStyle = new GUIStyle(Text.CurTextFieldStyle)
-                                    { 
-                                        //border = new RectOffset()
-                                    };
+            {
+                //border = new RectOffset()
+            };
         }
 
-        private static void DoSearchBlock(Rect area, SearchTerm term, string weatermark = null, GUIStyle style=null) {
-            float scale = area.height/ SearchDefaultHeight;
-            float clearSize = SearchClearDefaultSize*Math.Min(1, scale);
+        private static void DoSearchBlock(Rect area, SearchTerm term, string weatermark = null, GUIStyle style = null)
+        {
+            float scale = area.height / SearchDefaultHeight;
+            float clearSize = SearchClearDefaultSize * Math.Min(1, scale);
 
             Rect clearSearchRect = new Rect(area.xMax - 4f - clearSize, area.y + (area.height - clearSize) / 2, clearSize, clearSize);
             bool shouldClearSearch = Widgets.ButtonImage(clearSearchRect, Widgets.CheckboxOffTex);
@@ -362,7 +366,8 @@ sometext";
             bool escPressed = Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Escape;
             bool clickedOutside = !Mouse.IsOver(searchRect) && Event.current.type == EventType.MouseDown;
 
-            if (!term.Focused) {
+            if (!term.Focused)
+            {
                 GUI.color = new Color(1f, 1f, 1f, 0.6f);
             }
 
@@ -370,18 +375,23 @@ sometext";
             string searchInput = GUI.TextField(searchRect, watermark, style ?? DefaultSearchBoxStyle);
             GUI.color = Color.white;
 
-            if (term.Focused) {
+            if (term.Focused)
+            {
                 term.Value = searchInput;
             }
 
-            if ((GUI.GetNameOfFocusedControl() == term.ControlName || term.Focused) && (escPressed || clickedOutside)) {
+            if ((GUI.GetNameOfFocusedControl() == term.ControlName || term.Focused) && (escPressed || clickedOutside))
+            {
                 GUIUtility.keyboardControl = 0;
                 term.Focused = false;
-            } else if (GUI.GetNameOfFocusedControl() == term.ControlName && !term.Focused) {
+            }
+            else if (GUI.GetNameOfFocusedControl() == term.ControlName && !term.Focused)
+            {
                 term.Focused = true;
             }
 
-            if (shouldClearSearch) {
+            if (shouldClearSearch)
+            {
                 term.Value = string.Empty;
             }
         }
