@@ -55,30 +55,30 @@ namespace RSA.Core
                 RSACoreKeys.RSACore_IncludeParentCategory.Translate(),
                 ref Settings.IncludeParentCategory,
                 RSACoreKeys.RSACore_IncludeParentCategoryTip.Translate());
-        }
 
-        public static void DoPreview(Listing_Standard list) {
             const float sliderHeight = 30f;
 
             Rect rect = list.GetRect(sliderHeight);
             Widgets.Label(new Rect(rect.position, new Vector2(rect.width * 0.5f, sliderHeight)), RSACoreKeys.RSACore_SearchWidth.Translate());
             Settings.SearchWidth = Widgets.HorizontalSlider(new Rect(rect.x + rect.width * 0.5f, rect.y, rect.width * 0.5f, sliderHeight), Settings.SearchWidth, 0.25f, 1f, false, $"{Settings.SearchWidth:p0}", null, null, -1f);
 
+
+        }
+
+        public static void DoPreview(Listing_Standard list) {
             list.Gap();
 
             const float previewHeight = 250f;
 
-            float previewTop = rect.y + sliderHeight + list.verticalSpacing;
-
+            Rect rect = list.GetRect(previewHeight);
             Text.Font = GameFont.Tiny;
-            Widgets.Label(new Rect(rect.x, previewTop, rect.width * 0.5f, Text.LineHeight), RSACoreKeys.RSACore_Preview.Translate());
+            Widgets.Label(new Rect(rect.x, rect.y, rect.width * 0.5f, Text.LineHeight), RSACoreKeys.RSACore_Preview.Translate());
 
             ThingFilterUtil.QueueNextInvocationSearch(SearchCategories.TermFor("Settings"));
             ThingFilterUI.DoThingFilterConfigWindow(
-                new Rect(rect.width - 300f, previewTop, 300f, previewHeight),
+                new Rect(rect.width - 300f, rect.y, 300f, previewHeight),
                 ref scrollPosition,
                 filter);
-
         }
     }
 }
