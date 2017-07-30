@@ -1,10 +1,12 @@
 [![RimWorld Alpha 17](https://img.shields.io/badge/RimWorld-Alpha%2017-brightgreen.svg)](http://rimworldgame.com/)
 
-# Searchable Filters
+# Rimworld Search Agency
 
-Rimworld - Search for Storage, Bills & Outfits - Simple UI mod
+Rimworld - Search for Storage, Bills & Outfits
 
 Allows you to search in storage, bill ingredient & outfit filters.
+
+Has various Mod options allowing you to lay out the search as you prefer.
 
 ![alt tag](https://raw.githubusercontent.com/meonester/StorageSearch/master/preview.png)
 
