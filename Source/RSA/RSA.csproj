@@ -55,7 +55,6 @@
     <Compile Include="RSAMod.Settings.cs" />
     <Compile Include="HaulingHysterisis\StorageSettings_Hysteresis.cs" />
     <Compile Include="HaulingHysterisis\StorageSettings_Mapping.cs" />
-    <Compile Include="SpecialThingFilterWorker_Fresh.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
