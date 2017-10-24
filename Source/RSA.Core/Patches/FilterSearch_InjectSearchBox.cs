@@ -134,15 +134,18 @@ sometext";
         }
 
         [HarmonyTranspiler]
-        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instr)
-        {
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instr) {
             #region Transpiler Explanation
 
             #region C#
+
             /*
                 Change from
               
+
                     ...
+                    Widgets.DrawMenuSection(rect);
+                    ------------------               REMOVE BELOW HERE
                     Text.Font = GameFont.Tiny;
                     float num = rect.width - 2f;
                     Rect rect2 = new Rect(rect.x + 1f, rect.y + 1f, num / 2f, 24f);
@@ -157,9 +160,12 @@ sometext";
                     }
                     Text.Font = GameFont.Small;
                     rect.yMin = rect2.yMax;
+                    ------------------              REMOVE ABOVE HERE
+                    TreeNode_ThingCategory node = ThingCategoryNodeDatabase.RootNode;
                     ...
                 to
-                    ...
+                    Widgets.DrawMenuSection(rect);
+                    ------------------               
                     FilterSearch_InjectSearchBox.DoThingFilterConfigWindowHeader(ref rect, 
                                                                                             ref scrollPosition, 
                                                                                             filter, 
@@ -168,119 +174,14 @@ sometext";
                                                                                             forceHiddenDefs, 
                                                                                             forceHiddenFilters, 
                                                                                             suppressSmallVolumeTags);
+                    ------------------
+                    TreeNode_ThingCategory node = ThingCategoryNodeDatabase.RootNode;
                     ...
                 
                 (Can't do this inline, need external method, since we add quite a lot of code)
 
             */
-            #endregion
 
-            #region IL-Code
-            /*
-                Change from: 
-              
-	                IL_0000: ldarg.0
-	                IL_0001: ldc.i4.1
-	                IL_0002: call void Verse.Widgets::DrawMenuSection(valuetype [UnityEngine]UnityEngine.Rect, bool)
-
-                    <<< SKIP BELOW HERE        
-
-	                IL_0007: ldc.i4.0
-	                IL_0008: call void Verse.Text::set_Font(valuetype Verse.GameFont)
-	                IL_000d: ldarga.s rect
-	                IL_000f: call instance float32 [UnityEngine]UnityEngine.Rect::get_width()
-	                IL_0014: ldc.r4 2
-	                IL_0019: sub
-	                IL_001a: stloc.0
-	                IL_001b: ldloca.s 2
-	                IL_001d: ldarga.s rect
-	                IL_001f: call instance float32 [UnityEngine]UnityEngine.Rect::get_x()
-	                IL_0024: ldc.r4 1
-	                IL_0029: add
-	                IL_002a: ldarga.s rect
-	                IL_002c: call instance float32 [UnityEngine]UnityEngine.Rect::get_y()
-	                IL_0031: ldc.r4 1
-	                IL_0036: add
-	                IL_0037: ldloc.0
-	                IL_0038: ldc.r4 2
-	                IL_003d: div
-	                IL_003e: ldc.r4 24
-	                IL_0043: call instance void [UnityEngine]UnityEngine.Rect::.ctor(float32, float32, float32, float32)
-	                IL_0048: ldloc.2
-	                IL_0049: ldstr "ClearAll"
-	                IL_004e: call string Verse.Translator::Translate(string)
-	                IL_0053: ldc.i4.1
-	                IL_0054: ldc.i4.0
-	                IL_0055: ldc.i4.1
-	                IL_0056: call bool Verse.Widgets::ButtonText(valuetype [UnityEngine]UnityEngine.Rect, string, bool, bool, bool)
-	                IL_005b: brfalse IL_006a
-
-	                IL_0060: ldarg.2
-	                IL_0061: ldarg.s forceHiddenDefs
-	                IL_0063: ldarg.s forceHiddenFilters
-	                IL_0065: callvirt instance void Verse.ThingFilter::SetDisallowAll(class [mscorlib]System.Collections.Generic.IEnumerable`1<class Verse.ThingDef>, class [mscorlib]System.Collections.Generic.IEnumerable`1<class Verse.SpecialThingFilterDef>)
-
-	                IL_006a: ldloca.s 3
-	                IL_006c: ldloca.s 2
-	                IL_006e: call instance float32 [UnityEngine]UnityEngine.Rect::get_xMax()
-	                IL_0073: ldc.r4 1
-	                IL_0078: add
-	                IL_0079: ldloca.s 2
-	                IL_007b: call instance float32 [UnityEngine]UnityEngine.Rect::get_y()
-	                IL_0080: ldarga.s rect
-	                IL_0082: call instance float32 [UnityEngine]UnityEngine.Rect::get_xMax()
-	                IL_0087: ldc.r4 1
-	                IL_008c: sub
-	                IL_008d: ldloca.s 2
-	                IL_008f: call instance float32 [UnityEngine]UnityEngine.Rect::get_xMax()
-	                IL_0094: ldc.r4 1
-	                IL_0099: add
-	                IL_009a: sub
-	                IL_009b: ldc.r4 24
-	                IL_00a0: call instance void [UnityEngine]UnityEngine.Rect::.ctor(float32, float32, float32, float32)
-	                IL_00a5: ldloc.3
-	                IL_00a6: ldstr "AllowAll"
-	                IL_00ab: call string Verse.Translator::Translate(string)
-	                IL_00b0: ldc.i4.1
-	                IL_00b1: ldc.i4.0
-	                IL_00b2: ldc.i4.1
-	                IL_00b3: call bool Verse.Widgets::ButtonText(valuetype [UnityEngine]UnityEngine.Rect, string, bool, bool, bool)
-	                IL_00b8: brfalse IL_00c4
-
-	                IL_00bd: ldarg.2
-	                IL_00be: ldarg.3
-	                IL_00bf: callvirt instance void Verse.ThingFilter::SetAllowAll(class Verse.ThingFilter)
-
-	                IL_00c4: ldc.i4.1
-	                IL_00c5: call void Verse.Text::set_Font(valuetype Verse.GameFont)
-	                IL_00ca: ldarga.s rect
-	                IL_00cc: ldloca.s 2
-	                IL_00ce: call instance float32 [UnityEngine]UnityEngine.Rect::get_yMax()
-	                IL_00d3: call instance void [UnityEngine]UnityEngine.Rect::set_yMin(float32)
-
-                    <<<< SKIP ABOVE HERE
-
-            	    IL_00d8: ldloca.s 4
-	                IL_00da: ldc.r4 0.0
-	                IL_00df: ldc.r4 0.0
-               
-                to:
-
-                    IL_0000: ldarga.s     0
-                    IL_0002: ldarg.1      // scrollPosition
-                    IL_0003: ldarg.2      // 'filter'
-                    IL_0004: ldarg.3      // parentFilter
-                    IL_0005: ldarg.s      4
-                    IL_0007: ldarg.s      5
-                    IL_0009: ldarg.s      6
-                    IL_000b: ldarg.s      7
-                    IL_000d: call         void SearchFilter.FilterSearch_InjectSearchBox::DoThingFilterConfigWindowHeader(valuetype [UnityEngine]UnityEngine.Rect&, valuetype [UnityEngine]UnityEngine.Vector2&, class ['Assembly-CSharp']Verse.ThingFilter, class ['Assembly-CSharp']Verse.ThingFilter, int32, class [mscorlib]System.Collections.Generic.IEnumerable`1<class ['Assembly-CSharp']Verse.ThingDef>, class [mscorlib]System.Collections.Generic.IEnumerable`1<class ['Assembly-CSharp']Verse.SpecialThingFilterDef>, class [mscorlib]System.Collections.Generic.List`1<class ['Assembly-CSharp']Verse.ThingDef>)
-                      
-                    >>> INSERT UNTIL HERE        
-
-                    IL_0012: ret
-                                                                          
-            */
             #endregion
 
             #endregion
@@ -289,27 +190,43 @@ sometext";
 
             DumpIL(instructions, "Before patch");
 
-            // Number of *instructions* to remove 68 
-            instructions.RemoveRange(3, 68);
+            var miDrawMenuSection = AccessTools.Method(typeof(Widgets), nameof(Widgets.DrawMenuSection));
+            var miGetRootNode = AccessTools.Property(typeof(ThingCategoryNodeDatabase), nameof(ThingCategoryNodeDatabase.RootNode)).GetGetMethod(true);
 
-            var patch = new[]
-                        {
-                            new CodeInstruction(OpCodes.Ldarga_S, 0),
-                            new CodeInstruction(OpCodes.Ldarg_1),
-                            new CodeInstruction(OpCodes.Ldarg_2),
-                            new CodeInstruction(OpCodes.Ldarg_3),
-                            new CodeInstruction(OpCodes.Ldarg_S, 4),
-                            new CodeInstruction(OpCodes.Ldarg_S, 5),
-                            new CodeInstruction(OpCodes.Ldarg_S, 6),
-                            new CodeInstruction(OpCodes.Ldarg_S, 7),
-                            new CodeInstruction(OpCodes.Call,
-                                typeof(FilterSearch_InjectSearchBox)
-                                    .GetMethod(nameof(DoThingFilterConfigWindowHeader), BindingFlags.Public | BindingFlags.Static))
-                        };
-            instructions.InsertRange(3, patch);
-            // we skip 0xd1 (=0xd8-0x7) *bytes*, and inject 0x12 *bytes* - so pad with appropriate number of (1 byte) no-ops
+            var idxStart = instructions.FindIndex(ci => ci.opcode == OpCodes.Call && ci.operand == miDrawMenuSection);
+            if (idxStart == -1)
+            {
+                Log.Warning("Could not find ThingFilterUI.DoThingFilterConfigWindow DrawMenuSection anchor - not transpiling code");
+                return instructions;
+            }
 
-            instructions.InsertRange(3 + patch.Length, Enumerable.Repeat(new CodeInstruction(OpCodes.Nop), 0xd1 - 0x12));
+            var idxEnd = instructions.FindIndex(idxStart, ci => ci.opcode == OpCodes.Call && ci.operand == miGetRootNode);
+            if (idxEnd == -1)
+            {
+                Log.Warning("Could not find ThingFilterUI.DoThingFilterConfigWindow RootNode anchor - not transpiling code");
+                return instructions;
+            }
+
+            // remove anything between idxStart & idxEnd (excluding both ends)
+            for (int i = idxEnd - 1; i > idxStart; i--)
+                instructions.RemoveAt(i);
+
+            instructions.InsertRange(
+                idxStart + 1,
+                new[]
+                {
+                    new CodeInstruction(OpCodes.Ldarga_S, 0),
+                    new CodeInstruction(OpCodes.Ldarg_1),
+                    new CodeInstruction(OpCodes.Ldarg_2),
+                    new CodeInstruction(OpCodes.Ldarg_3),
+                    new CodeInstruction(OpCodes.Ldarg_S, 4),
+                    new CodeInstruction(OpCodes.Ldarg_S, 5),
+                    new CodeInstruction(OpCodes.Ldarg_S, 6),
+                    new CodeInstruction(OpCodes.Ldarg_S, 7),
+                    new CodeInstruction(OpCodes.Call,
+                                        typeof(FilterSearch_InjectSearchBox)
+                                            .GetMethod(nameof(DoThingFilterConfigWindowHeader), BindingFlags.Public | BindingFlags.Static))
+                });
 
             DumpIL(instructions, "After patch");
 
