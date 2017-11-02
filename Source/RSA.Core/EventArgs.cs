@@ -1,8 +1,11 @@
-﻿using System;
+﻿namespace RSA.Core
+{
+    using System;
 
-namespace RSA.Core {
-    public class EventArgs<T> : EventArgs {
-        public EventArgs(T value) {
+    public class EventArgs<T> : EventArgs
+    {
+        public EventArgs(T value)
+        {
             this.Value = value;
         }
 

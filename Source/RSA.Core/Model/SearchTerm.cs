@@ -1,40 +1,48 @@
-﻿using System;
-using System.Linq;
-using Verse;
+﻿namespace RSA.Core
+{
+    using System;
+    using System.Linq;
 
-namespace RSA.Core {
+    using Verse;
+
     public class SearchTerm
     {
-        private readonly string _categoryKey;
+        internal readonly string ControlName;
+
+        internal bool Focused = false;
 
         internal string Value = string.Empty;
 
-        internal bool Focused = false;
-        internal readonly string ControlName;
+        private readonly string _categoryKey;
 
-        public string CategoryKey {
-            get { return _categoryKey; }            
+        internal SearchTerm(string categoryKey)
+        {
+            this._categoryKey = categoryKey;
+            this.ControlName = $"SearchFilterInput_{categoryKey}";
         }
 
-        internal SearchTerm(string categoryKey) {
-            _categoryKey = categoryKey;
-            ControlName = $"SearchFilterInput_{categoryKey}";
+        public string CategoryKey
+        {
+            get
+            {
+                return this._categoryKey;
+            }
         }
 
-        public void Reset() {
-            Value = String.Empty;
+        public void Reset()
+        {
+            this.Value = string.Empty;
         }
 
         internal TreeNode_ThingCategory FilterNodes(TreeNode_ThingCategory node)
         {
-            if (!string.IsNullOrEmpty(Value))
+            if (!string.IsNullOrEmpty(this.Value))
             {
                 TreeNode_ThingCategory rootNode = new TreeNode_ThingCategory(new ThingCategoryDef());
 
                 foreach (ThingDef currentThing in node.catDef.DescendantThingDefs.Where(
-                    td => td.label.IndexOf(Value, StringComparison.CurrentCultureIgnoreCase) != -1))
+                    td => td.label.IndexOf(this.Value, StringComparison.CurrentCultureIgnoreCase) != -1))
                 {
-
                     rootNode.catDef.childThingDefs.Add(currentThing);
 
                     if (Settings.IncludeParentCategory)
@@ -48,6 +56,7 @@ namespace RSA.Core {
 
                 node = rootNode;
             }
+
             return node;
         }
     }

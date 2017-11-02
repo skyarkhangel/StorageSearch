@@ -77,15 +77,10 @@
   <ItemGroup>
     <Content Include="..\..\About\About.xml">
       <Link>About\About.xml</Link>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="..\..\About\preview.png">
       <Link>About\preview.png</Link>
-    </Content>
-    <Content Include="..\..\Languages\English\Keyed\SearchFilterKeys.xml">
-      <Link>Languages\English\Keyed\SearchFilterKeys.xml</Link>
-    </Content>
-    <Content Include="..\..\Languages\English\Keyed\StorageSearchKeys.xml">
-      <Link>Languages\English\Keyed\StorageSearchKeys.xml</Link>
     </Content>
     <Content Include="Languages\DefGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
