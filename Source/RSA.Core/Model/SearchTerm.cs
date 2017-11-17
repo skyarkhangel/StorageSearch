@@ -1,48 +1,40 @@
-﻿namespace RSA.Core
-{
-    using System;
-    using System.Linq;
+﻿using System;
+using System.Linq;
+using Verse;
 
-    using Verse;
-
+namespace RSA.Core {
     public class SearchTerm
     {
-        internal readonly string ControlName;
-
-        internal bool Focused = false;
+        private readonly string _categoryKey;
 
         internal string Value = string.Empty;
 
-        private readonly string _categoryKey;
+        internal bool Focused = false;
+        internal readonly string ControlName;
 
-        internal SearchTerm(string categoryKey)
-        {
-            this._categoryKey = categoryKey;
-            this.ControlName = $"SearchFilterInput_{categoryKey}";
+        public string CategoryKey {
+            get { return _categoryKey; }            
         }
 
-        public string CategoryKey
-        {
-            get
-            {
-                return this._categoryKey;
-            }
+        internal SearchTerm(string categoryKey) {
+            _categoryKey = categoryKey;
+            ControlName = $"SearchFilterInput_{categoryKey}";
         }
 
-        public void Reset()
-        {
-            this.Value = string.Empty;
+        public void Reset() {
+            Value = String.Empty;
         }
 
         internal TreeNode_ThingCategory FilterNodes(TreeNode_ThingCategory node)
         {
-            if (!string.IsNullOrEmpty(this.Value))
+            if (!string.IsNullOrEmpty(Value))
             {
                 TreeNode_ThingCategory rootNode = new TreeNode_ThingCategory(new ThingCategoryDef());
 
                 foreach (ThingDef currentThing in node.catDef.DescendantThingDefs.Where(
-                    td => td.label.IndexOf(this.Value, StringComparison.CurrentCultureIgnoreCase) != -1))
+                    td => td.label.IndexOf(Value, StringComparison.CurrentCultureIgnoreCase) != -1))
                 {
+
                     rootNode.catDef.childThingDefs.Add(currentThing);
 
                     if (Settings.IncludeParentCategory)
@@ -56,7 +48,6 @@
 
                 node = rootNode;
             }
-
             return node;
         }
     }

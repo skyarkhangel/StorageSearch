@@ -17,37 +17,30 @@ namespace RSA.Languages {
 		/// Get's the translation key for '<em>Rimworld Search Agency Core</em>'
 		/// </summary>
 		public const string @RSACore = "RSACore";
-
 		/// <summary>
 		/// Get's the translation key for '<em>Rimworld Search Agency Core (v{0})</em>'
 		/// </summary>
 		public const string @RSACore_Debug = "RSACore.Debug";
-
 		/// <summary>
 		/// Get's the translation key for '<em>Rimworld Search Agency basics injected...</em>'
 		/// </summary>
 		public const string @RSACore_HarmonyLog = "RSACore.HarmonyLog";
-
 		/// <summary>
 		/// Get's the translation key for '<em>Show parent category</em>'
 		/// </summary>
 		public const string @RSACore_IncludeParentCategory = "RSACore.IncludeParentCategory";
-
 		/// <summary>
 		/// Get's the translation key for '<em>Include an item's first parent categoryKey in the search filter.</em>'
 		/// </summary>
 		public const string @RSACore_IncludeParentCategoryTip = "RSACore.IncludeParentCategoryTip";
-
 		/// <summary>
 		/// Get's the translation key for '<em>Search</em>'
 		/// </summary>
 		public const string @RSACore_SearchWatermark = "RSACore.SearchWatermark";
-
 		/// <summary>
 		/// Get's the translation key for '<em>Searchbox relative width</em>'
 		/// </summary>
 		public const string @RSACore_SearchWidth = "RSACore.SearchWidth";
-
 		/// <summary>
 		/// Get's the translation key for '<em>Preview</em>'
 		/// </summary>

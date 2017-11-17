@@ -10,50 +10,41 @@
 using System.CodeDom.Compiler;
 using System.Diagnostics.CodeAnalysis;
 
-namespace RSA.Languages
-{
+namespace RSA.Languages {
 
-    public static class @RSAKeys
-    {
-        /// <summary>
-        /// Get's the translation key for '<em>Rimworld Search Agency</em>'
-        /// </summary>
-        public const string @RSA = "RSA";
-
-        /// <summary>
-        /// Get's the translation key for '<em>Enable outfits filter</em>'
-        /// </summary>
-        public const string @RSA_ForOutfits = "RSA.ForOutfits";
-
-        /// <summary>
-        /// Get's the translation key for '<em>Show the search box in outfit manager.</em>'
-        /// </summary>
-        public const string @RSA_ForOutfitsTip = "RSA.ForOutfitsTip";
-
-        /// <summary>
-        /// Get's the translation key for '<em>Enable crafting filter</em>'
-        /// </summary>
-        public const string @RSA_ForCrafting = "RSA.ForCrafting";
-
-        /// <summary>
-        /// Get's the translation key for '<em>Show the search box in crafting bill details.</em>'
-        /// </summary>
-        public const string @RSA_ForCraftingTip = "RSA.ForCraftingTip";
-
-        /// <summary>
-        /// Get's the translation key for '<em>Refill cells less than</em>'
-        /// </summary>
-        public const string @HaulingHysteresis_RefillCellsLabel = "HaulingHysteresis.RefillCellsLabel";
-
-        /// <summary>
-        /// Get's the translation key for '<em>Filter Search Main injected {0}...</em>'
-        /// </summary>
-        public const string @RSA_Harmony = "RSA.Harmony";
-
-        /// <summary>
-        /// Get's the translation key for '<em>(ExtendedCrafting detected)</em>'
-        /// </summary>
-        public const string @RSA_Harmony_ExtendedCrafting = "RSA.Harmony.ExtendedCrafting";
-    }
+	public static class @RSAKeys {
+		/// <summary>
+		/// Get's the translation key for '<em>Rimworld Search Agency</em>'
+		/// </summary>
+		public const string @RSA = "RSA";
+		/// <summary>
+		/// Get's the translation key for '<em>Enable outfits filter</em>'
+		/// </summary>
+		public const string @RSA_ForOutfits = "RSA.ForOutfits";
+		/// <summary>
+		/// Get's the translation key for '<em>Show the search box in outfit manager.</em>'
+		/// </summary>
+		public const string @RSA_ForOutfitsTip = "RSA.ForOutfitsTip";
+		/// <summary>
+		/// Get's the translation key for '<em>Enable crafting filter</em>'
+		/// </summary>
+		public const string @RSA_ForCrafting = "RSA.ForCrafting";
+		/// <summary>
+		/// Get's the translation key for '<em>Show the search box in crafting bill details.</em>'
+		/// </summary>
+		public const string @RSA_ForCraftingTip = "RSA.ForCraftingTip";
+		/// <summary>
+		/// Get's the translation key for '<em>Refill cells less than</em>'
+		/// </summary>
+		public const string @HaulingHysteresis_RefillCellsLabel = "HaulingHysteresis.RefillCellsLabel";
+		/// <summary>
+		/// Get's the translation key for '<em>Filter Search Main injected {0}...</em>'
+		/// </summary>
+		public const string @RSA_Harmony = "RSA.Harmony";
+		/// <summary>
+		/// Get's the translation key for '<em>(ExtendedCrafting detected)</em>'
+		/// </summary>
+		public const string @RSA_Harmony_ExtendedCrafting = "RSA.Harmony.ExtendedCrafting";
+	}
 
 }

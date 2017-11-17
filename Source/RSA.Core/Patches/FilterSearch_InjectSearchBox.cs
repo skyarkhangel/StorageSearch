@@ -1,68 +1,53 @@
-﻿namespace RSA.Core
-{
-    using Harmony;
-    using RSA.Core.Util;
-    using RSA.Languages;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-    using System.Reflection;
-    using System.Reflection.Emit;
-    using System.Text;
-    using UnityEngine;
-    using Verse;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
+using System.Text;
+using Harmony;
+using RSA.Core.Util;
+using RSA.Languages;
+using UnityEngine;
+using Verse;
+
+namespace RSA.Core {
 
     [HarmonyPatch(typeof(ThingFilterUI), nameof(ThingFilterUI.DoThingFilterConfigWindow))]
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Harmony patch class")]
     [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Harmony patch class")]
-    internal class FilterSearch_InjectSearchBox
+    class FilterSearch_InjectSearchBox
     {
-        private const float buttonsInset = 2f;
 
-        private const float buttonSize = 24f;
+        private const float SearchDefaultHeight = 29f;
+        private const float SearchClearDefaultSize = 12f;
 
         private const float buttonSpacing = 2f;
+        private const float buttonsInset = 2f;
+        private const float buttonSize = 24f;
 
         private const float OverheadControlsHeight = 35f;
 
-        private const float SearchClearDefaultSize = 12f;
-
-        private const float SearchDefaultHeight = 29f;
-
-        public static readonly GUIStyle DefaultSearchBoxStyle;
+        internal static volatile int showSearchCount;
 
         internal static Queue<SearchOptions> searchOptions = new Queue<SearchOptions>();
 
-        internal static volatile int showSearchCount;
 
-        internal static Func<GUIStyle> Text_GetCurFontStyle =
-            Access.GetPropertyGetter<GUIStyle>("CurFontStyle", typeof(Text));
+        internal static Func<GUIStyle> Text_GetCurFontStyle = Access.GetPropertyGetter<GUIStyle>("CurFontStyle", typeof(Verse.Text));
 
-        static FilterSearch_InjectSearchBox()
-        {
-            Text.Font = GameFont.Small;
-            DefaultSearchBoxStyle = new GUIStyle(Text.CurTextFieldStyle);
-        }
 
-        public static void DoThingFilterConfigWindowHeader(
-            ref Rect rect,
-            ref Vector2 scrollPosition,
-            ThingFilter filter,
-            ThingFilter parentFilter = null,
-            int openMask = 1,
-            IEnumerable<ThingDef> forceHiddenDefs = null,
-            IEnumerable<SpecialThingFilterDef> forceHiddenFilters = null,
-            List<ThingDef> suppressSmallVolumeTags = null)
-        {
+        public static void DoThingFilterConfigWindowHeader(ref Rect rect, ref Vector2 scrollPosition, ThingFilter filter, ThingFilter parentFilter = null, int openMask = 1, IEnumerable<ThingDef> forceHiddenDefs = null, IEnumerable<SpecialThingFilterDef> forceHiddenFilters = null, List<ThingDef> suppressSmallVolumeTags = null) {
             bool showSearch = showSearchCount-- > 0 && searchOptions.Count != 0;
             showSearchCount = Math.Max(0, showSearchCount);
 
-            string s = @"sometext";
+            string s = @"
 
-            if (showSearch)
-            {
+
+sometext";
+
+            if (showSearch) {
+
                 /*      Layout
                  *                   buttonSpacing    2x buttonSpacing                                                             buttonsInset
                  *                     |                |                                                                           |        |
@@ -78,104 +63,85 @@
                  *   |  |            |  |            |     |                                                                      |  |   v
                  *   |  +------------+--+------------+-----+------------ headRect ------------------------------------------------+  |   -
                  *   |                                                                                                               |
-                 *
-                 *
+                 *      
+                 *   
                  *      |<------ restWidth --------->|     |<--------------------------- searchWidth ---------------------------->|
-                 *
-                 *
+                 *      
+                 *      
                  *      |<--------->|   |<---------->|
-                 *              |             |
+                 *              |             | 
                  *              clearAllowWidth
                  *              (clamped to min
                  *               buttonSize+2*2)
                  */
-                Rect headRect = new Rect(
-                    rect.x + buttonsInset,
-                    rect.y + buttonsInset,
-                    rect.width - 2 * buttonsInset,
-                    buttonSize);
+
+
+                var headRect = new Rect(rect.x + buttonsInset, rect.y + buttonsInset, rect.width - (2 * buttonsInset), buttonSize);
                 Text.Font = GameFont.Tiny;
-                float restWidth = headRect.width * (1 - Settings.SearchWidth) - 3 * buttonSpacing;
-                float clearAllowWidth = Math.Max(buttonSize, restWidth / 2f);
+                var restWidth = headRect.width*(1-Settings.SearchWidth) - 3 * buttonSpacing;
+                var clearAllowWidth = Math.Max(buttonSize, restWidth /2f);
+
 
                 Text.Font = GameFont.Tiny;
-                string clear = "ClearAll".Translate();
-                string allow = "AllowAll".Translate();
+                var clear = "ClearAll".Translate();
+                var allow = "AllowAll".Translate();
 
                 // check min width "clear"/"allow" texts would need
-                float minWidth = new[] { clear, allow }.Max(c => Text_GetCurFontStyle().CalcSize(new GUIContent(c)).x);
+                var minWidth = new[] {clear, allow }.Max(c => Text_GetCurFontStyle().CalcSize(new GUIContent(c)).x);
 
                 Func<Rect, string, object, bool> drawButton;
 
-                if (minWidth + 4f > clearAllowWidth)
-                {
+                if (minWidth +4f > clearAllowWidth) {
                     // use icons
-                    drawButton = (r, t, o) => ExtraWidgets.ButtonImage(
-                        r,
-                        (Texture2D)o,
-                        true,
-                        new TipSignal { text = t },
-                        new Rect(r.x + (r.width - buttonSize) / 2f, r.y, buttonSize, buttonSize));
-                }
-                else
-                {
+                    drawButton = (r, t, o) => ExtraWidgets.ButtonImage(r, (Texture2D)o, true, new TipSignal {  text = t }, new Rect(r.x+(r.width - buttonSize)/2f, r.y, buttonSize, buttonSize));
+                } else {
                     // use text buttons
                     drawButton = (r, t, _) => Widgets.ButtonText(r, t, true, false, true);
                 }
 
                 Rect rect2 = new Rect(headRect.x, headRect.y, clearAllowWidth, buttonSize);
-                if (drawButton(rect2, clear, Widgets.CheckboxOffTex))
-                {
+                if (drawButton(rect2, clear, Widgets.CheckboxOffTex)) {
                     filter.SetDisallowAll(forceHiddenDefs, forceHiddenFilters);
                 }
-
-                Rect rect3 = new Rect(
-                    headRect.x + clearAllowWidth + buttonSpacing,
-                    headRect.y,
-                    clearAllowWidth,
-                    buttonSize);
-                if (drawButton(rect3, allow, Widgets.CheckboxOnTex))
-                {
+                Rect rect3 = new Rect(headRect.x + clearAllowWidth + buttonSpacing, headRect.y, clearAllowWidth, buttonSize);
+                if (drawButton(rect3, allow, Widgets.CheckboxOnTex)) {
                     filter.SetAllowAll(parentFilter);
                 }
 
-                float searchWidth = headRect.width - (2 * clearAllowWidth + 3 * buttonSpacing);
+                var searchWidth = headRect.width - (2*clearAllowWidth + 3*buttonSpacing);
 
                 Rect searchRect = new Rect(headRect.xMax - searchWidth, headRect.y, searchWidth, buttonSize);
 
-                SearchOptions options = searchOptions.Dequeue();
+                var options = searchOptions.Dequeue();
                 DoSearchBlock(searchRect, options.Term, options.Watermark);
                 ThingFilter_InjectFilter.Projections.Enqueue(options.Term.FilterNodes);
 
                 rect.yMin = searchRect.yMax;
-            }
-            else
-            {
+            } else {
                 Text.Font = GameFont.Tiny;
                 float num = rect.width - 2f;
                 Rect rect2 = new Rect(rect.x + 1f, rect.y + 1f, num / 2f, 24f);
-                if (Widgets.ButtonText(rect2, "ClearAll".Translate(), true, false, true))
-                {
+                if (Widgets.ButtonText(rect2, "ClearAll".Translate(), true, false, true)) {
                     filter.SetDisallowAll(forceHiddenDefs, forceHiddenFilters);
                 }
-
                 Rect rect3 = new Rect(rect2.xMax + 1f, rect2.y, rect.xMax - 1f - (rect2.xMax + 1f), 24f);
-                if (Widgets.ButtonText(rect3, "AllowAll".Translate(), true, false, true))
-                {
+                if (Widgets.ButtonText(rect3, "AllowAll".Translate(), true, false, true)) {
                     filter.SetAllowAll(parentFilter);
                 }
-
                 Text.Font = GameFont.Small;
-                rect.yMin = rect2.yMax + 1;
+                rect.yMin = rect2.yMax+1;
             }
         }
 
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instr)
         {
+            #region Transpiler Explanation
+
+            #region C#
             /*
                 Change from
-
+              
                     ...
                     Text.Font = GameFont.Tiny;
                     float num = rect.width - 2f;
@@ -194,28 +160,30 @@
                     ...
                 to
                     ...
-                    FilterSearch_InjectSearchBox.DoThingFilterConfigWindowHeader(ref rect,
-                                                                                            ref scrollPosition,
-                                                                                            filter,
-                                                                                            parentFilter,
-                                                                                            openMask,
-                                                                                            forceHiddenDefs,
-                                                                                            forceHiddenFilters,
+                    FilterSearch_InjectSearchBox.DoThingFilterConfigWindowHeader(ref rect, 
+                                                                                            ref scrollPosition, 
+                                                                                            filter, 
+                                                                                            parentFilter, 
+                                                                                            openMask, 
+                                                                                            forceHiddenDefs, 
+                                                                                            forceHiddenFilters, 
                                                                                             suppressSmallVolumeTags);
                     ...
-
+                
                 (Can't do this inline, need external method, since we add quite a lot of code)
 
             */
+            #endregion
 
+            #region IL-Code
             /*
-                Change from:
-
+                Change from: 
+              
 	                IL_0000: ldarg.0
 	                IL_0001: ldc.i4.1
 	                IL_0002: call void Verse.Widgets::DrawMenuSection(valuetype [UnityEngine]UnityEngine.Rect, bool)
 
-                    <<< SKIP BELOW HERE
+                    <<< SKIP BELOW HERE        
 
 	                IL_0007: ldc.i4.0
 	                IL_0008: call void Verse.Text::set_Font(valuetype Verse.GameFont)
@@ -295,7 +263,7 @@
             	    IL_00d8: ldloca.s 4
 	                IL_00da: ldc.r4 0.0
 	                IL_00df: ldc.r4 0.0
-
+               
                 to:
 
                     IL_0000: ldarga.s     0
@@ -307,42 +275,81 @@
                     IL_0009: ldarg.s      6
                     IL_000b: ldarg.s      7
                     IL_000d: call         void SearchFilter.FilterSearch_InjectSearchBox::DoThingFilterConfigWindowHeader(valuetype [UnityEngine]UnityEngine.Rect&, valuetype [UnityEngine]UnityEngine.Vector2&, class ['Assembly-CSharp']Verse.ThingFilter, class ['Assembly-CSharp']Verse.ThingFilter, int32, class [mscorlib]System.Collections.Generic.IEnumerable`1<class ['Assembly-CSharp']Verse.ThingDef>, class [mscorlib]System.Collections.Generic.IEnumerable`1<class ['Assembly-CSharp']Verse.SpecialThingFilterDef>, class [mscorlib]System.Collections.Generic.List`1<class ['Assembly-CSharp']Verse.ThingDef>)
-
-                    >>> INSERT UNTIL HERE
+                      
+                    >>> INSERT UNTIL HERE        
 
                     IL_0012: ret
-
+                                                                          
             */
+            #endregion
 
-            List<CodeInstruction> instructions = new List<CodeInstruction>(instr);
+            #endregion
+
+            var instructions = new List<CodeInstruction>(instr);
 
             DumpIL(instructions, "Before patch");
 
-            // Number of *instructions* to remove 68
+            // Number of *instructions* to remove 68 
             instructions.RemoveRange(3, 68);
 
-            CodeInstruction[] patch =
-            {
-                new CodeInstruction(OpCodes.Ldarga_S, 0), new CodeInstruction(OpCodes.Ldarg_1),
-                new CodeInstruction(OpCodes.Ldarg_2), new CodeInstruction(OpCodes.Ldarg_3),
-                new CodeInstruction(OpCodes.Ldarg_S, 4), new CodeInstruction(OpCodes.Ldarg_S, 5),
-                new CodeInstruction(OpCodes.Ldarg_S, 6), new CodeInstruction(OpCodes.Ldarg_S, 7),
-                new CodeInstruction(
-                    OpCodes.Call,
-                    typeof(FilterSearch_InjectSearchBox).GetMethod(
-                        nameof(DoThingFilterConfigWindowHeader),
-                        BindingFlags.Public | BindingFlags.Static))
-            };
+            var patch = new[]
+                        {
+                            new CodeInstruction(OpCodes.Ldarga_S, 0),
+                            new CodeInstruction(OpCodes.Ldarg_1),
+                            new CodeInstruction(OpCodes.Ldarg_2),
+                            new CodeInstruction(OpCodes.Ldarg_3),
+                            new CodeInstruction(OpCodes.Ldarg_S, 4),
+                            new CodeInstruction(OpCodes.Ldarg_S, 5),
+                            new CodeInstruction(OpCodes.Ldarg_S, 6),
+                            new CodeInstruction(OpCodes.Ldarg_S, 7),
+                            new CodeInstruction(OpCodes.Call,
+                                typeof(FilterSearch_InjectSearchBox)
+                                    .GetMethod(nameof(DoThingFilterConfigWindowHeader), BindingFlags.Public | BindingFlags.Static))
+                        };
             instructions.InsertRange(3, patch);
-
             // we skip 0xd1 (=0xd8-0x7) *bytes*, and inject 0x12 *bytes* - so pad with appropriate number of (1 byte) no-ops
-            instructions.InsertRange(
-                3 + patch.Length,
-                Enumerable.Repeat(new CodeInstruction(OpCodes.Nop), 0xd1 - 0x12));
+
+            instructions.InsertRange(3 + patch.Length, Enumerable.Repeat(new CodeInstruction(OpCodes.Nop), 0xd1 - 0x12));
 
             DumpIL(instructions, "After patch");
 
             return instructions;
+        }
+
+        [Conditional("TRACE")]
+        private static void DumpIL(IEnumerable<CodeInstruction> instr, string header = null)
+        {
+            Func<Label, string> lblToString = l => $"Label_{l.GetHashCode()}";
+
+            Func<IEnumerable<Label>, string> concatLabels = labels =>
+            {
+                var str = labels.Aggregate(
+                    new StringBuilder(),
+                    (sb, l) => (sb.Length != 0 ? sb.Append(", ") : sb).Append(lblToString(l)),
+                    sb => sb.ToString()
+
+                );
+
+                return !String.IsNullOrEmpty(str) ? $"[{str}]:\t" : null;
+            };
+
+            Log.Message(instr.Aggregate(
+                    new StringBuilder(header != null ? $"{header}\r\n" : null),
+                    (sb, ci) => sb.AppendLine($"{concatLabels(ci.labels)}{ci.opcode}\t{(ci.operand is Label ? lblToString((Label)ci.operand) : ci.operand)}"),
+                    sb => sb.ToString()
+                )
+            );
+        }
+
+        public readonly static GUIStyle DefaultSearchBoxStyle;
+
+        static FilterSearch_InjectSearchBox()
+        {
+            Text.Font = GameFont.Small;
+            DefaultSearchBoxStyle = new GUIStyle(Text.CurTextFieldStyle)
+            {
+                //border = new RectOffset()
+            };
         }
 
         private static void DoSearchBlock(Rect area, SearchTerm term, string weatermark = null, GUIStyle style = null)
@@ -350,17 +357,11 @@
             float scale = area.height / SearchDefaultHeight;
             float clearSize = SearchClearDefaultSize * Math.Min(1, scale);
 
-            Rect clearSearchRect = new Rect(
-                area.xMax - 4f - clearSize,
-                area.y + (area.height - clearSize) / 2,
-                clearSize,
-                clearSize);
+            Rect clearSearchRect = new Rect(area.xMax - 4f - clearSize, area.y + (area.height - clearSize) / 2, clearSize, clearSize);
             bool shouldClearSearch = Widgets.ButtonImage(clearSearchRect, Widgets.CheckboxOffTex);
 
             Rect searchRect = area;
-            string watermark = term.Value != string.Empty || term.Focused
-                                   ? term.Value
-                                   : (weatermark ?? RSACoreKeys.RSACore_SearchWatermark.Translate());
+            string watermark = (term.Value != string.Empty || term.Focused) ? term.Value : (weatermark ?? RSACoreKeys.RSACore_SearchWatermark.Translate());
 
             bool escPressed = Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Escape;
             bool clickedOutside = !Mouse.IsOver(searchRect) && Event.current.type == EventType.MouseDown;
@@ -394,29 +395,5 @@
                 term.Value = string.Empty;
             }
         }
-
-        [Conditional("TRACE")]
-        private static void DumpIL(IEnumerable<CodeInstruction> instr, string header = null)
-        {
-            Func<Label, string> lblToString = l => $"Label_{l.GetHashCode()}";
-
-            Func<IEnumerable<Label>, string> concatLabels = labels =>
-            {
-                string str = labels.Aggregate(
-                    new StringBuilder(),
-                    (sb, l) => (sb.Length != 0 ? sb.Append(", ") : sb).Append(lblToString(l)),
-                    sb => sb.ToString());
-
-                return !String.IsNullOrEmpty(str) ? $"[{str}]:\t" : null;
-            };
-
-            Log.Message(
-                instr.Aggregate(
-                    new StringBuilder(header != null ? $"{header}\r\n" : null),
-                    (sb, ci) => sb.AppendLine(
-                        $"{concatLabels(ci.labels)}{ci.opcode}\t{(ci.operand is Label ? lblToString((Label)ci.operand) : ci.operand)}"),
-                    sb => sb.ToString()));
-        }
-
     }
 }

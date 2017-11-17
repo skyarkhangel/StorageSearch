@@ -1,12 +1,11 @@
-﻿namespace RSA.HaulingHysterisis
-{
-    using RimWorld;
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using RimWorld;
 
+namespace RSA.HaulingHysterisis
+{
     internal class StorageSettings_Mapping
     {
-        private static readonly Dictionary<StorageSettings, StorageSettings_Hysteresis> mapping =
-            new Dictionary<StorageSettings, StorageSettings_Hysteresis>();
+        private static Dictionary<StorageSettings, StorageSettings_Hysteresis> mapping = new Dictionary<StorageSettings, StorageSettings_Hysteresis>();
 
         public static StorageSettings_Hysteresis Get(StorageSettings storage)
         {

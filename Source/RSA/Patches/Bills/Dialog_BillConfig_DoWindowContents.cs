@@ -1,23 +1,18 @@
-﻿namespace RSA
-{
-    using Harmony;
+﻿using Harmony;
+using RimWorld;
+using RSA.Core;
+using UnityEngine;
+using Verse;
 
-    using RimWorld;
-
-    using RSA.Core;
-
-    using UnityEngine;
-
+namespace RSA {
     [HarmonyPatch(typeof(Dialog_BillConfig), nameof(Dialog_BillConfig.DoWindowContents))]
-    internal class Dialog_BillConfig_DoWindowContents
+    class Dialog_BillConfig_DoWindowContents
     {
+
         [HarmonyPrefix]
-        public static void Before_DoWindowContents(Rect inRect)
-        {
+        public static void Before_DoWindowContents(Rect inRect) {
             if (!Settings.EnableCraftingFilter)
-            {
                 return;
-            }
 
             ThingFilterUtil.QueueNextInvocationSearch(SearchCategories.Bill);
         }
