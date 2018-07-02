@@ -22,7 +22,7 @@ namespace RSA
                     num = StorageSettings_Mapping.Get(c.GetSlotGroup(map).Settings).FillPercent;
                 }
 
-                __result &= !map.thingGrid.ThingsListAt(c).Any(t => t.def.EverStoreable && t.stackCount >= thing.def.stackLimit*(num/100f));
+                __result &= !map.thingGrid.ThingsListAt(c).Any(t => t.def.EverStorable(false) && t.stackCount >= thing.def.stackLimit*(num/100f));
             }
         }
     }
