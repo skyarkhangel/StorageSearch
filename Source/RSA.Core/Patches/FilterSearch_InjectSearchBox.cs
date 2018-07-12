@@ -34,17 +34,9 @@ namespace RSA.Core {
         internal static Queue<SearchOptions> searchOptions = new Queue<SearchOptions>();
 
 
-        internal static Func<GUIStyle> Text_GetCurFontStyle = Access.GetPropertyGetter<GUIStyle>("CurFontStyle", typeof(Verse.Text));
-
-
         public static void DoThingFilterConfigWindowHeader(ref Rect rect, ref Vector2 scrollPosition, ThingFilter filter, ThingFilter parentFilter = null, int openMask = 1, IEnumerable<ThingDef> forceHiddenDefs = null, IEnumerable<SpecialThingFilterDef> forceHiddenFilters = null, List<ThingDef> suppressSmallVolumeTags = null) {
             bool showSearch = showSearchCount-- > 0 && searchOptions.Count != 0;
             showSearchCount = Math.Max(0, showSearchCount);
-
-            string s = @"
-
-
-sometext";
 
             if (showSearch) {
 
@@ -87,7 +79,7 @@ sometext";
                 var allow = "AllowAll".Translate();
 
                 // check min width "clear"/"allow" texts would need
-                var minWidth = new[] {clear, allow }.Max(c => Text_GetCurFontStyle().CalcSize(new GUIContent(c)).x);
+                var minWidth = new[] {clear, allow }.Max(c => Text.CurFontStyle.CalcSize(new GUIContent(c)).x);
 
                 Func<Rect, string, object, bool> drawButton;
 
