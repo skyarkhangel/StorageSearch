@@ -1,6 +1,7 @@
-[![RimWorld 1.0 unstable](https://img.shields.io/badge/RimWorld-1.0%20unstable-yellow.svg)](http://rimworldgame.com/) [![License: CC BY-SA 3.0](https://img.shields.io/badge/License-CC%20BY--SA%203.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/3.0/)
 
 # Rimworld Search Agency
+
+[![RimWorld B19](https://img.shields.io/badge/RimWorld-B19-green.svg?style=popout-square)](http://rimworldgame.com/) [![License: CC BY-SA 3.0](https://img.shields.io/badge/License-CC%20BY--SA%203.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/3.0/)
 
 Rimworld - Search for Storage, Bills & Outfits
 
@@ -8,9 +9,9 @@ Allows you to search in storage, bill ingredient & outfit filters.
 
 Has various Mod options allowing you to lay out the search as you prefer.
 
-![alt tag](https://raw.githubusercontent.com/meonester/StorageSearch/master/preview.png)
+![alt tag](https://raw.githubusercontent.com/DoctorVanGogh/StorageSearch/master/About/preview.png)
 
 ## Powered by Harmony
 
-![Powered by Harmony](https://camo.githubusercontent.com/074bf079275fa90809f51b74e9dd0deccc70328f/68747470733a2f2f7332342e706f7374696d672e6f72672f3538626c31727a33392f6c6f676f2e706e67)
+![Powered by Harmony](https://raw.githubusercontent.com/pardeike/Harmony/master/HarmonyLogo.png)
 
