@@ -59,7 +59,7 @@ namespace RSA
 
             if (RSACoreMod.Debug) {
                 list.GapLine();
-                list.Label(RSACoreKeys.RSACore_Debug.Translate(typeof(RSACoreMod).Assembly.GetName().Version));
+                list.Label(RSACoreKeys.RSACore_Debug.Translate(typeof(RSACoreMod).Assembly.GetName().Version.ToString()));
             }
 
             if (baseFilterSearchMod != null) {

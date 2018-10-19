@@ -34,7 +34,7 @@ namespace RSA.Core
                 return String.Empty;
 
             return Debug
-                ? RSACoreKeys.RSACore_Debug.Translate(Assembly.GetExecutingAssembly().GetName().Version)
+                ? RSACoreKeys.RSACore_Debug.Translate(Assembly.GetExecutingAssembly().GetName().Version.ToString())
                 : RSACoreKeys.RSACore.Translate();
         }
 
