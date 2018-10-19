@@ -214,7 +214,7 @@ namespace RSA.Core {
                     new CodeInstruction(OpCodes.Ldarg_S, 4),
                     new CodeInstruction(OpCodes.Ldarg_S, 5),
                     new CodeInstruction(OpCodes.Ldarg_S, 6),
-                    new CodeInstruction(OpCodes.Ldarg_S, 7),
+                    new CodeInstruction(OpCodes.Ldarg_S, 8),
                     new CodeInstruction(OpCodes.Call,
                                         typeof(FilterSearch_InjectSearchBox)
                                             .GetMethod(nameof(DoThingFilterConfigWindowHeader), BindingFlags.Public | BindingFlags.Static))
