@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
+
 namespace RSA.Core {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Libarary class")]
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Libarary class")]

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using Harmony;
+using HarmonyLib;
 using RSA.Languages;
 using UnityEngine;
 using Verse;
@@ -17,7 +17,7 @@ namespace RSA.Core
 
 
         public RSACoreMod(ModContentPack content) : base(content) {
-            HarmonyInstance harmonyInstance = HarmonyInstance.Create("RSA.Core");
+            Harmony harmonyInstance = new Harmony("RSA.Core");
             harmonyInstance.PatchAll(Assembly.GetExecutingAssembly());              // just use all [HarmonyPatch] decorated classes       
 
             Log.Message("RSA Core loaded...");

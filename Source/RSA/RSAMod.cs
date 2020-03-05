@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Harmony;
+using HarmonyLib;
 using RimWorld;
 using RSA;
 using RSA.Core;
@@ -22,7 +22,7 @@ namespace RSA
 
         public RSAMod(ModContentPack content) : base(content)
         {
-            HarmonyInstance harmonyInstance = HarmonyInstance.Create("RSA");
+            Harmony harmonyInstance = new Harmony("RSA");
             harmonyInstance.PatchAll(Assembly.GetExecutingAssembly());              // just use all [HarmonyPatch] decorated classes       
 
             bool modifiedExtendedCrafting = TryDetourExtendedCrafting(harmonyInstance);
@@ -69,7 +69,7 @@ namespace RSA
             list.End();
         }
 
-        private static bool TryDetourExtendedCrafting(HarmonyInstance harmony) {
+        private static bool TryDetourExtendedCrafting(Harmony harmony) {
             var ecAssembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.GetName().Name == "AcEnhancedCrafting");
             if (ecAssembly != null) {
                 MethodInfo mi = ecAssembly.GetType("AlcoholV.Overriding.Dialog_BillConfig").GetMethod(nameof(RimWorld.Dialog_BillConfig.DoWindowContents));
