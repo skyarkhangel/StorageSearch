@@ -27,7 +27,7 @@ namespace RSA
 
             bool modifiedExtendedCrafting = TryDetourExtendedCrafting(harmonyInstance);
 
-            Log.Message($"RSA Main injected {(modifiedExtendedCrafting ? "(ExtendedCrafting detected)" : null)}...");
+            Log.Message($"RSA Main {typeof(RSAMod).Assembly.GetName().Version} loaded {(modifiedExtendedCrafting ? " - (ExtendedCrafting detected)" : null)}...");
                 
             // supress base mod (mini) settings, we're replicating then in our own extended object
             baseFilterSearchMod = LoadedModManager.GetMod<RSACoreMod>();

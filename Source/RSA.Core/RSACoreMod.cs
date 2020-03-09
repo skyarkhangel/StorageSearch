@@ -20,7 +20,8 @@ namespace RSA.Core
             Harmony harmonyInstance = new Harmony("RSA.Core");
             harmonyInstance.PatchAll(Assembly.GetExecutingAssembly());              // just use all [HarmonyPatch] decorated classes       
 
-            Log.Message("RSA Core loaded...");
+            
+            Log.Message($"RSA Core {typeof(RSACoreMod).Assembly.GetName().Version} loaded..");
 
             this.GetSettings<Settings>();
 
