@@ -57,7 +57,7 @@
     <Reference Include="UnityEngine.InputLegacyModule">
       <HintPath>$(RimworldManagedDir11)\UnityEngine.InputLegacyModule.dll</HintPath>
       <Private>False</Private>
-    </Reference>    
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventArgs.cs" />
@@ -74,6 +74,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StorageCategories.Predefined.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\ThingFilterCache.cs" />
     <Compile Include="Patches\FilterSearch_InjectSearchBox.cs" />
     <Compile Include="Patches\ThingFilter_InjectFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

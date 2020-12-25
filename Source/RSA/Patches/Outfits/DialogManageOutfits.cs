@@ -4,6 +4,7 @@ using System.Reflection.Emit;
 using HarmonyLib;
 using RimWorld;
 using RSA.Core;
+using RSA.Core.Model;
 using RSA.Core.Util;
 using UnityEngine;
 
@@ -19,14 +20,16 @@ namespace RSA {
         }
 
         [HarmonyPrefix]
-        public static void Before_DoWindowContents(Rect inRect, Dialog_ManageOutfits __instance) {
-            if (GetSelectedOutfit(__instance) == null)
+        public static void Before_DoWindowContents(Dialog_ManageOutfits __instance, Rect inRect) {
+            Outfit outfit = GetSelectedOutfit(__instance);
+            if (outfit == null)
                 return;
 
             if (!Settings.EnableOutfitFilter)
                 return;
-            
-            ThingFilterUtil.QueueNextInvocationSearch(SearchCategories.Outfit);
+
+            if (__instance.GetType().Assembly == typeof(Dialog_ManageOutfits).Assembly)
+                ThingFilterCache.Set(SearchCategories.CategoryID_Outfit, outfit.filter);
         }
     }
 }

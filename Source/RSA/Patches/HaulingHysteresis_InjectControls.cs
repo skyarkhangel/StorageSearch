@@ -17,18 +17,13 @@ namespace StorageSearch {
         private const float HysteresisHeight = 30f;
         private const float HysteresisBlockHeight = 35f;
 
-        internal static volatile int showHysteresisCount;
-
         private static Queue<StorageSettings> _settingsQueue = new Queue<StorageSettings>();
 
         internal static Queue<StorageSettings> SettingsQueue => _settingsQueue;
 
         [HarmonyPrefix]
         public static void Before_DoThingFilterConfigWindow(ref object __state, ref Rect rect) {
-            bool showHysteresis = (showHysteresisCount-- > 0) && _settingsQueue.Count != 0;
-            showHysteresisCount = Math.Max(0, showHysteresisCount);
-
-            if (showHysteresis)
+            if (_settingsQueue.Count != 0)
             {                
                 DoHysteresisBlock(new Rect(0f, rect.yMax - HysteresisHeight, rect.width, HysteresisHeight), _settingsQueue.Dequeue());
                 rect= new Rect(rect.x, rect.y, rect.width, rect.height - HysteresisBlockHeight);            

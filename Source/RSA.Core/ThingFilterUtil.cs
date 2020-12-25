@@ -13,20 +13,5 @@ namespace RSA.Core {
         public static void QueueNextInvocationFilter([NotNull]Func<TreeNode_ThingCategory, TreeNode_ThingCategory> projection) {
             ThingFilter_InjectFilter.Projections.Enqueue(projection);
         }
-
-        /// <summary>
-        /// Queue up an embedding of a search input filter for the next invocation of <see cref="ThingFilterUI.DoThingFilterConfigWindow"/>.
-        /// </summary>
-        /// <param name="term"><see cref="SearchTerm"/> to use.</param>
-        /// <param name="watermark">Use this parameter to change the search boxes default watermark/seach hint</param>
-        public static void QueueNextInvocationSearch([NotNull] SearchTerm term, string watermark = null) {
-            FilterSearch_InjectSearchBox.searchOptions.Enqueue(
-                new SearchOptions
-                {
-                    Term = term,
-                    Watermark = watermark
-                });
-            FilterSearch_InjectSearchBox.showSearchCount++;
-        }
     }
 }
