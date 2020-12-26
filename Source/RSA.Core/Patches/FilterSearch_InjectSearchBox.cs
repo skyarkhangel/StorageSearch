@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using HarmonyLib;
+using RSA.Core.Model;
 using RSA.Core.Util;
 using RSA.Languages;
 using UnityEngine;
@@ -29,16 +30,18 @@ namespace RSA.Core {
 
         private const float OverheadControlsHeight = 35f;
 
-        internal static volatile int showSearchCount;
-
-        internal static Queue<SearchOptions> searchOptions = new Queue<SearchOptions>();
-
-
         public static void DoThingFilterConfigWindowHeader(ref Rect rect, ref Vector2 scrollPosition, ThingFilter filter, ThingFilter parentFilter = null, int openMask = 1, IEnumerable<ThingDef> forceHiddenDefs = null, IEnumerable<SpecialThingFilterDef> forceHiddenFilters = null, List<ThingDef> suppressSmallVolumeTags = null) {
-            bool showSearch = showSearchCount-- > 0 && searchOptions.Count != 0;
-            showSearchCount = Math.Max(0, showSearchCount);
+            SearchOptions searchOptions = null;
+            
+            string key = ThingFilterCache.KeyByFilter(filter);
+            if (key != null)
+                searchOptions = new SearchOptions
+                {
+                    Term = SearchCategories.TermFor(key),
+                    Watermark = null
+                };
 
-            if (showSearch) {
+            if (searchOptions != null) {
 
                 /*      Layout
                  *                   buttonSpacing    2x buttonSpacing                                                             buttonsInset
@@ -104,9 +107,8 @@ namespace RSA.Core {
 
                 Rect searchRect = new Rect(headRect.xMax - searchWidth, headRect.y, searchWidth, buttonSize);
 
-                var options = searchOptions.Dequeue();
-                DoSearchBlock(searchRect, options.Term, options.Watermark);
-                ThingFilter_InjectFilter.Projections.Enqueue(options.Term.FilterNodes);
+                DoSearchBlock(searchRect, searchOptions.Term, searchOptions.Watermark);
+                ThingFilter_InjectFilter.Projections.Enqueue(searchOptions.Term.FilterNodes);
 
                 rect.yMin = searchRect.yMax;
             } else {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using HarmonyLib;
+using RSA.Core.Model;
 using RSA.Languages;
 using UnityEngine;
 using Verse;
@@ -75,7 +76,7 @@ namespace RSA.Core
             Text.Font = GameFont.Tiny;
             Widgets.Label(new Rect(rect.x, rect.y, rect.width * 0.5f, Text.LineHeight), RSACoreKeys.RSACore_Preview.Translate());
 
-            ThingFilterUtil.QueueNextInvocationSearch(SearchCategories.TermFor("Settings"));
+            ThingFilterCache.Set(SearchCategories.CategoryID_Preview, RSACoreMod.filter);
             ThingFilterUI.DoThingFilterConfigWindow(
                 new Rect(rect.width - 300f, rect.y, 300f, previewHeight),
                 ref scrollPosition,

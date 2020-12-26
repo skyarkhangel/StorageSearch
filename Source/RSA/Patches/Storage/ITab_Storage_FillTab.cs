@@ -6,6 +6,7 @@ using System.Reflection.Emit;
 using HarmonyLib;
 using RimWorld;
 using RSA.Core;
+using RSA.Core.Model;
 using RSA.Core.Util;
 using StorageSearch;
 using UnityEngine;
@@ -26,15 +27,13 @@ namespace RSA
 
         [HarmonyPrefix]
         public static void Before_ITab_Storage_FillTab(ITab_Storage __instance) {
-            ThingFilterUtil.QueueNextInvocationSearch(SearchCategories.Storage);
-
             if (ReferenceEquals(__instance.GetType().Assembly, typeof(ITab_Storage).Assembly))
             {
                 // only show hysteresis option for non derived (non-custom) storage(s)
-                HaulingHysteresis_InjectControls.showHysteresisCount++;
 
-                IStoreSettingsParent selStoreSettingsParent =  GetSelStoreSettingsParent(__instance);
-                HaulingHysteresis_InjectControls.SettingsQueue.Enqueue(selStoreSettingsParent.GetStoreSettings());
+                StorageSettings storeSettings = GetSelStoreSettingsParent(__instance).GetStoreSettings();
+                ThingFilterCache.Set(SearchCategories.CategoryID_Storage, storeSettings.filter);
+                HaulingHysteresis_InjectControls.SettingsQueue.Enqueue(storeSettings);
             }
         }
     }
