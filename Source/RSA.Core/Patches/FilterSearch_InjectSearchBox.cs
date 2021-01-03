@@ -288,6 +288,9 @@ namespace RSA.Core {
 
             if (term.Focused)
             {
+                if (!term.Value.Equals(searchInput))
+                    ThingFilter_InjectFilter.ClearFilteredNodesCache();
+
                 term.Value = searchInput;
             }
 
@@ -303,6 +306,9 @@ namespace RSA.Core {
 
             if (shouldClearSearch)
             {
+                if (!string.IsNullOrEmpty(term.Value))
+                    ThingFilter_InjectFilter.ClearFilteredNodesCache();
+
                 term.Value = string.Empty;
             }
         }
