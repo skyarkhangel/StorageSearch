@@ -17,12 +17,7 @@ namespace RSA.Core
 	    internal static Queue<Func<TreeNode_ThingCategory, TreeNode_ThingCategory>> Projections => projections;
 
 		/// <summary>
-		/// Interface ticks count between <see cref="TreeNode_ThingCategory" /> filtering by search string.
-		/// </summary>
-		private const int InterfaceTicksPerUpdate = 15;
-
-		/// <summary>
-		/// Cache for filtered <see cref="TreeNode_ThingCategory" />.
+		/// Cache for filtered <see cref="TreeNode_ThingCategory" /> nodes.
 		/// </summary>
 		private static readonly IDictionary<TreeNode_ThingCategory, TreeNode_ThingCategory> FilteredNodesCache = new Dictionary<TreeNode_ThingCategory, TreeNode_ThingCategory>();
 
@@ -46,15 +41,12 @@ namespace RSA.Core
 			// Note! Filter function must be obtained from queue even if it will not be applied
 			var func = projections.Dequeue();
 
-			// Clear nodes cache every InterfaceTicksPerUpdate times.
-			// Interface is updated 30 times per second. Thus nodes will be filtered by search string (30/InterfaceTicksPerUpdate) times per second.
-			//Log.Warning("interfaceTickCounter " + interfaceTickCounter);
+			// Clear nodes cache every InterfaceTicksPerClearFilteredNodesCache interface ticks.
 			interfaceTickCounter++;
-			if (interfaceTickCounter >= InterfaceTicksPerUpdate)
+			if (interfaceTickCounter >= ModOptions.InterfaceTicksPerClearFilteredNodesCache.value)
 			{
 				interfaceTickCounter = 0;
 				FilteredNodesCache.Clear();
-				Log.Warning("FilteredNodesCache.Clear() ");
 			}
 
 
