@@ -2,7 +2,7 @@
 <Defs>
   
   <RSA.Core.IntOption>
-    <defName>InterfaceTicksPerClearFilteredNodesCache</defName>
+    <defName>InterfaceTicksPerUpdateFilteredNodes</defName>
     <value>15</value>
   </RSA.Core.IntOption>
 

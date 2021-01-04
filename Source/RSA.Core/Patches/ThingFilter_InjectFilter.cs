@@ -41,9 +41,9 @@ namespace RSA.Core
 			// Note! Filter function must be obtained from queue even if it will not be applied
 			var func = projections.Dequeue();
 
-			// Clear nodes cache every InterfaceTicksPerClearFilteredNodesCache interface ticks.
+			// Clear nodes cache every InterfaceTicksPerUpdateFilteredNodes interface ticks.
 			interfaceTickCounter++;
-			if (interfaceTickCounter >= ModOptions.InterfaceTicksPerClearFilteredNodesCache.value)
+			if (interfaceTickCounter >= ModOptions.InterfaceTicksPerUpdateFilteredNodes.value)
 			{
 				interfaceTickCounter = 0;
 				FilteredNodesCache.Clear();
