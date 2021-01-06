@@ -75,6 +75,7 @@
       <DependentUpon>StorageCategories.Predefined.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\ThingFilterCache.cs" />
+    <Compile Include="ModOptions.cs" />
     <Compile Include="Patches\FilterSearch_InjectSearchBox.cs" />
     <Compile Include="Patches\ThingFilter_InjectFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
